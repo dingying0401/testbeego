@@ -2,10 +2,17 @@ package controllers
 
 import (
 "github.com/astaxie/beego"
+
+
 	)
 
 type LoginController struct {
 	beego.Controller
+}
+
+type Logininfo struct {
+	Username string
+	Password string
 }
 
 func (c *LoginController) Prepare() {
@@ -24,4 +31,20 @@ func (c *LoginController) Get() {
 	c.TplName = "login/login.tpl"
 	//当然也可以不使用模版，直接用 this.Ctx.WriteString 输出字符串，如：
 	//c.Ctx.WriteString("hhaha")
+
 }
+func (c *LoginController) Post() {
+		userinfo := Logininfo{}
+		userinfo.Username := c.GetString("Username")
+		userinfo.Password := c.GetString("Password")
+		if
+		userinfo.Username ==  "dingying" && userinfo.Password == "dingying"
+		{
+				c.Redirect("/home", 301)
+			}
+		else {
+				c.Redirect("/error",404)
+			}
+	return
+		}
+

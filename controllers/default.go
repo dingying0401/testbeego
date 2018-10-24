@@ -8,6 +8,7 @@ type MainController struct {
 	beego.Controller
 }
 
+
 func (c *MainController) Prepare() {
 
 }
@@ -26,6 +27,3 @@ func (c *MainController) Get() {
 	//c.Ctx.WriteString("hhaha")
 }
 
-//func (this *MainController) Post() {
-	//pkgname := this.GetString("pkgname")
-	//content := this.GetString("content")
