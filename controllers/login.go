@@ -1,18 +1,16 @@
 package controllers
 
 import (
-"github.com/astaxie/beego"
-
-
-	)
+	"github.com/astaxie/beego"
+)
 
 type LoginController struct {
 	beego.Controller
 }
 
 type Logininfo struct {
-	Username string
-	Password string
+	username string
+	password string
 }
 
 func (c *LoginController) Prepare() {
@@ -34,17 +32,31 @@ func (c *LoginController) Get() {
 
 }
 func (c *LoginController) Post() {
-		userinfo := Logininfo{}
-		userinfo.Username := c.GetString("Username")
-		userinfo.Password := c.GetString("Password")
-		if
-		userinfo.Username ==  "dingying" && userinfo.Password == "dingying"
-		{
-				c.Redirect("/home", 301)
-			}
-		else {
-				c.Redirect("/error",404)
-			}
-	return
-		}
+	/*userinfo := Logininfo{}
+	userinfo.Username := c.GetString("Username")
+	userinfo.Password := c.GetString("Password")
+	if
+	userinfo.Username == "dingying" && userinfo.Password == "dingying" {
+		c.Redirect("/home", 301)
+	}
+	else {
+		c.Redirect("/error", 404)
+	}
+	return*/
 
+	userinfo := Logininfo{}
+	userinfo.username = c.GetString("username")
+	userinfo.password = c.GetString("password")
+	if userinfo.username == "" || userinfo.password == ""{
+		c.Ctx.WriteString("please input username or password!")
+		return
+	} else {
+		if(userinfo.username != "xiaobizai" || userinfo.password != "biebibi"){
+			c.Ctx.WriteString("username or password is invalid!")
+		} else {
+			c.Ctx.WriteString("welcome to xiaobizai's world!")
+		}
+		return
+	}
+
+}

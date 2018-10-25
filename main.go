@@ -1,15 +1,14 @@
 package main
 
 import (
-	_ "testbeego/routers"
 	"github.com/astaxie/beego"
+	_ "testbeego/routers"
 )
-
 
 func main() {
 	//beego.SetStaticPath("/static","public")
 	/*beego.SetStaticPath("/asd","conf")*/
-	beego.SetStaticPath("/asd","static")
+	beego.SetStaticPath("/asd", "static")
 	beego.Run()
 	/*
 	1.app.conf
@@ -21,4 +20,3 @@ func main() {
 	7.监听服务端口：ListenAndServe
 	 */
 }
-
