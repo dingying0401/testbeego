@@ -9,8 +9,8 @@ type LoginController struct {
 }
 
 type Logininfo struct {
-	username string
-	password string
+	username string `form："username"`
+	password string `form: "password"`
 }
 
 func (c *LoginController) Prepare() {
@@ -32,19 +32,17 @@ func (c *LoginController) Get() {
 
 }
 func (c *LoginController) Post() {
-	/*userinfo := Logininfo{}
-	userinfo.Username := c.GetString("Username")
-	userinfo.Password := c.GetString("Password")
-	if
-	userinfo.Username == "dingying" && userinfo.Password == "dingying" {
+	userinfo := Logininfo{}
+	userinfo.username = c.GetString("username")
+	userinfo.password = c.GetString("password")
+	if (userinfo.username == "dingying" && userinfo.password == "dingying") {
 		c.Redirect("/home", 301)
-	}
-	else {
+	} else {
 		c.Redirect("/error", 404)
 	}
-	return*/
+	return
 
-	userinfo := Logininfo{}
+	/*userinfo := Logininfo{}
 	userinfo.username = c.GetString("username")
 	userinfo.password = c.GetString("password")
 	if userinfo.username == "" || userinfo.password == "" {
@@ -57,6 +55,6 @@ func (c *LoginController) Post() {
 			c.Ctx.WriteString("welcome to xiaobizai's world!")
 		}
 		return
-	}
+	}*/
 
 }
