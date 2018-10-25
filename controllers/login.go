@@ -47,11 +47,11 @@ func (c *LoginController) Post() {
 	userinfo := Logininfo{}
 	userinfo.username = c.GetString("username")
 	userinfo.password = c.GetString("password")
-	if userinfo.username == "" || userinfo.password == ""{
+	if userinfo.username == "" || userinfo.password == "" {
 		c.Ctx.WriteString("please input username or password!")
 		return
 	} else {
-		if(userinfo.username != "xiaobizai" || userinfo.password != "biebibi"){
+		if (userinfo.username != "xiaobizai" || userinfo.password != "biebibi") {
 			c.Ctx.WriteString("username or password is invalid!")
 		} else {
 			c.Ctx.WriteString("welcome to xiaobizai's world!")

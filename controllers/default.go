@@ -8,7 +8,6 @@ type MainController struct {
 	beego.Controller
 }
 
-
 func (c *MainController) Prepare() {
 
 }
@@ -26,4 +25,3 @@ func (c *MainController) Get() {
 	//当然也可以不使用模版，直接用 this.Ctx.WriteString 输出字符串，如：
 	//c.Ctx.WriteString("hhaha")
 }
-
