@@ -73,7 +73,14 @@
   </style>
 </head>
 
+</body>
+        </html>
+
 <body>
+<form action="/home">
+  买多少斤：<input type="text" name="loseweight" ><br>
+  <input type="submit" value="提交">
+</form>
   <header>
     <h1 >小哔仔多少钱一斤</h1>
     <h1 class="logo">小哔仔在不在</h1>

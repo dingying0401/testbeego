@@ -8,11 +8,23 @@ type MainController struct {
 	beego.Controller
 }
 
+type Productinfo struct{
+	name string `form -`
+	length float32 `form -`
+	weight float64 `form -`
+	briefinfo string `form -`
+	loseweight float64 `form loseweight`
+	restweight float64 `form -`
+	singleprice float64 `form -`
+	totalprice float64 `form -`
+
+}
+
 func (c *MainController) Prepare() {
 
 }
 
-func (c *MainController) Get() {
+/*func (c *MainController) Get() {
 	//maincontroller里面会有很多方法，这里重新定义Get()方法
 	//我们可以通过各种方式获取数据，然后赋值到 this.Data 中，
 	// 这是一个用来存储输出数据的 map，可以赋值任意类型的值，这里我们只是简单举例输出两个字符串
@@ -25,3 +37,25 @@ func (c *MainController) Get() {
 	//当然也可以不使用模版，直接用 this.Ctx.WriteString 输出字符串，如：
 	//c.Ctx.WriteString("hhaha")
 }
+*/
+
+func (c *MainController) Buying() {
+	boyinfo:=Productinfo{}
+	boyinfo.name = "Xiao Bi Zai"
+	boyinfo.length = 180
+	boyinfo.weight = 170
+	boyinfo.singleprice = 5
+	boyinfo.loseweight = c.GetFloat("loseweight")
+	boyinfo.restweight = boyinfo.weight - boyinfo.loseweight
+	boyinfo.totalprice = boyinfo.singleprice * boyinfo.loseweight
+	boyinfo.briefinfo ="Is he the most handsome one in the world? No! Once you buy his weight, he will be, hurry up to buy!"
+	if (boyinfo.restweight == 0) {
+		c.Ctx.WriteString("Sorry,Xiao bi Zai has sold out ")
+
+	}
+	c.TplName = "index.tpl"
+	return
+
+}
+
+

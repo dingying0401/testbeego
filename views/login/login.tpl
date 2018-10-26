@@ -21,12 +21,12 @@
         <i class="material-icons lock">lock</i> 登录
     </div>
 
-    <form>
+    <form method="post" action="/login">
         <div class="input">
             <div class="input-addon">
                 <i class="material-icons">face</i>
             </div>
-            <input id="username" placeholder="用户名" type="text" required class="validate" autocomplete="off">
+            <input id="username" name="username" placeholder="用户名" type="text" required class="validate" autocomplete="off">
         </div>
 
         <div class="clearfix"></div>
@@ -35,7 +35,7 @@
             <div class="input-addon">
                 <i class="material-icons">vpn_key</i>
             </div>
-            <input id="password" placeholder="密码" type="password" required class="validate" autocomplete="off">
+            <input id="password" name="password" placeholder="密码" type="password" required class="validate" autocomplete="off">
         </div>
 
         <div class="remember-me">

@@ -38,10 +38,10 @@ func (c *LoginController) Post() {
 	if (userinfo.username == "dingying" && userinfo.password == "dingying") {
 		c.Redirect("/home", 301)
 	} else {
-		c.Redirect("/error", 404)
+		c.Redirect("/error", 301)
 	}
 	return
-
+}
 	/*userinfo := Logininfo{}
 	userinfo.username = c.GetString("username")
 	userinfo.password = c.GetString("password")
@@ -57,4 +57,9 @@ func (c *LoginController) Post() {
 		return
 	}*/
 
+
+func (c *LoginController) Errorpage(){
+	c.Ctx.WriteString("your identification is wrong")
 }
+
+
