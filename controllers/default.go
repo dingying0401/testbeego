@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+
+	"fmt"
 )
 
 type MainController struct {
@@ -9,12 +11,12 @@ type MainController struct {
 }
 
 type Productinfo struct{
-	name string `form -`
-	length float32 `form -`
-	weight float64 `form -`
-	briefinfo string `form -`
+	name string `form name`
+	length float32 `form length`
+	weight float64 `form weight`
+	briefinfo string `form briefinfo`
 	loseweight float64 `form loseweight`
-	restweight float64 `form -`
+	restweight float64 `form restweight`
 	singleprice float64 `form -`
 	totalprice float64 `form -`
 
@@ -45,13 +47,17 @@ func (c *MainController) Buying() {
 	boyinfo.length = 180
 	boyinfo.weight = 170
 	boyinfo.singleprice = 5
-	boyinfo.loseweight = c.GetFloat("loseweight")
+	boyinfo.loseweight,_ = c.GetFloat("loseweight")
 	boyinfo.restweight = boyinfo.weight - boyinfo.loseweight
 	boyinfo.totalprice = boyinfo.singleprice * boyinfo.loseweight
 	boyinfo.briefinfo ="Is he the most handsome one in the world? No! Once you buy his weight, he will be, hurry up to buy!"
 	if (boyinfo.restweight == 0) {
 		c.Ctx.WriteString("Sorry,Xiao bi Zai has sold out ")
 
+	}else{
+		fmt.Println(&boyinfo)
+		//c.Data["json"]=&boyinfo
+		//c.ServeJSON()
 	}
 	c.TplName = "index.tpl"
 	return

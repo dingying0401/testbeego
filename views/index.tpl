@@ -77,30 +77,13 @@
         </html>
 
 <body>
-<form action="/home">
+<form action="/home" method="post">
   买多少斤：<input type="text" name="loseweight" ><br>
   <input type="submit" value="提交">
 </form>
   <header>
-    <h1 >小哔仔多少钱一斤</h1>
-    <h1 class="logo">小哔仔在不在</h1>
-    <div class="description">
-          快活的小黑
-    <div class="description">
-      此树是我栽，此花是我采.
-    </div>
-    <p>
+    <h1>小哔仔多少钱一斤</h1>
   </header>
-  <footer>
-    <div class="author">
-      Official website:
-      <a href="http://{{.Website}}">{{.Website}}</a> /
-      Contact me:
-      <a class="email" href="mailto:{{.Email}}">{{.Email}}</a>
-    </div>
-  </footer>
-  <div class="backdrop"></div>
-
   <script src="/static/js/reload.min.js"></script>
 </body>
 </html>
