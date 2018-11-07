@@ -2,23 +2,24 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-
 	"fmt"
-)
+	"log"
+
+	)
 
 type MainController struct {
 	beego.Controller
 }
 
 type Productinfo struct{
-	name string `form name`
-	length float32 `form length`
-	weight float64 `form weight`
-	briefinfo string `form briefinfo`
-	loseweight float64 `form loseweight`
-	restweight float64 `form restweight`
-	singleprice float64 `form -`
-	totalprice float64 `form -`
+	Name string `form:"name,text,姓名：  "`
+	Length float32 `form:"length,text,身高： "`
+	Weight float64 `form:"weight,text,体重："`
+	Briefinfo string `form:"briefinfo,text,简介："`
+	Loseweight float64 `form:"loseweight,text,购买体重： "`
+	Restweight float64 `form:"restweight,text,剩余体重： "`
+	Singleprice float64 `form:"singleprice,text,单价： "`
+	Totalprice float64 `form:"totalprice,text,总价： "`
 
 }
 
@@ -41,27 +42,50 @@ func (c *MainController) Prepare() {
 }
 */
 
-func (c *MainController) Buying() {
-	boyinfo:=Productinfo{}
-	boyinfo.name = "Xiao Bi Zai"
-	boyinfo.length = 180
-	boyinfo.weight = 170
-	boyinfo.singleprice = 5
-	boyinfo.loseweight,_ = c.GetFloat("loseweight")
-	boyinfo.restweight = boyinfo.weight - boyinfo.loseweight
-	boyinfo.totalprice = boyinfo.singleprice * boyinfo.loseweight
-	boyinfo.briefinfo ="Is he the most handsome one in the world? No! Once you buy his weight, he will be, hurry up to buy!"
-	if (boyinfo.restweight == 0) {
+func (c *MainController) Evaluate() {
+	boyinfo := Productinfo{}
+	boyinfo.Name = "Chen Chen"
+	boyinfo.Length = 180
+	boyinfo.Weight = 170
+	boyinfo.Singleprice = 5
+	boyinfo.Loseweight, _ = c.GetFloat("loseweight")
+	boyinfo.Restweight = boyinfo.Weight - boyinfo.Loseweight
+	boyinfo.Totalprice = boyinfo.Singleprice * boyinfo.Loseweight
+	boyinfo.Briefinfo = "Is he the most handsome one in the world? No! Once you buy his weight, he will be, hurry up to buy!"
+	if (boyinfo.Restweight <= 0) {
 		c.Ctx.WriteString("Sorry,Xiao bi Zai has sold out ")
 
-	}else{
+	} else {
+		//c.Ctx.WriteString("name: "+boyinfo.Name)
 		fmt.Println(&boyinfo)
+		c.Data["Form"] = &boyinfo
 		//c.Data["json"]=&boyinfo
 		//c.ServeJSON()
+		c.TplName = "index.tpl"
+		return
+
 	}
-	c.TplName = "index.tpl"
-	return
+}
+func (c *MainController) Upload(){
+		f, h, err := c.GetFile("uploadname")
+		if err != nil {
+			log.Fatal("getfile err ", err)
+		}
+		defer f.Close()
+		c.SaveToFile("uploadname", "static/upload/" + h.Filename) // 保存位置在 static/upload, 没有文件夹要先创建
+
+	}
+func (c *MainController) Productdetail(){
+	beego.URLFor("Maincontroller.Productdetail")
+	c.TplName="productdetail.tpl"
 
 }
+
+
+
+
+
+
+
 
 

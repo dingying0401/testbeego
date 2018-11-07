@@ -13,6 +13,8 @@ type Logininfo struct {
 	password string `form: "password"`
 }
 
+
+
 func (c *LoginController) Prepare() {
 
 }
@@ -31,6 +33,20 @@ func (c *LoginController) Get() {
 	//c.Ctx.WriteString("hhaha")
 
 }
+/*userinfo := Logininfo{}
+userinfo.username = c.GetString("username")
+userinfo.password = c.GetString("password")
+if userinfo.username == "" || userinfo.password == "" {
+	c.Ctx.WriteString("please input username or password!")
+	return
+} else {
+	if (userinfo.username != "xiaobizai" || userinfo.password != "biebibi") {
+		c.Ctx.WriteString("username or password is invalid!")
+	} else {
+		c.Ctx.WriteString("welcome to xiaobizai's world!")
+	}
+	return
+}*/
 func (c *LoginController) Post() {
 	userinfo := Logininfo{}
 	userinfo.username = c.GetString("username")
@@ -42,24 +58,9 @@ func (c *LoginController) Post() {
 	}
 	return
 }
-	/*userinfo := Logininfo{}
-	userinfo.username = c.GetString("username")
-	userinfo.password = c.GetString("password")
-	if userinfo.username == "" || userinfo.password == "" {
-		c.Ctx.WriteString("please input username or password!")
-		return
-	} else {
-		if (userinfo.username != "xiaobizai" || userinfo.password != "biebibi") {
-			c.Ctx.WriteString("username or password is invalid!")
-		} else {
-			c.Ctx.WriteString("welcome to xiaobizai's world!")
-		}
-		return
-	}*/
-
-
 func (c *LoginController) Errorpage(){
-	c.Ctx.WriteString("your identification is wrong")
+	c.TplName = "login/errorpage.tpl"
+
 }
 
 

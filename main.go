@@ -1,15 +1,28 @@
 package main
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	_ "testbeego/routers"
+	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
 )
+
+
+
+func init() {
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
+}
 
 func main() {
 	//beego.SetStaticPath("/static","public")
 	/*beego.SetStaticPath("/asd","conf")*/
-	beego.SetStaticPath("/asd", "static/img")
+	//beego.SetStaticPath("/asd", "static/img")
+	o := orm.NewOrm()
 	beego.Run()
+	userlogin := new(LoginUser)
+	fmt.Println(o.Insert(userlogin))
 	/*
 	1.app.conf
 	2.hookfunc (函数：AddAPPStartHook)
