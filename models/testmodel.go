@@ -2,7 +2,7 @@ package main
 
 import (
 "github.com/astaxie/beego/orm"
-)
+		)
 
 type LoginUser struct {
 	username string `form："username"`
@@ -21,7 +21,11 @@ type Userinfo struct{
 
 }
 
-func init() {
+func RegisterDB() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(LoginUser), new(Userinfo))
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("mysql", "mysql", "root:dingying@/test?charset=utf8")
+
 }
+
