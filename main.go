@@ -12,7 +12,7 @@ import (
 
 
 func init() {
-models2.RegisterDB()
+     models2.RegisterDB()
 
 }
 
@@ -34,13 +34,14 @@ models2.RegisterDB()
 	7.监听服务端口：ListenAndServ
 	 */
 
+
 func main() {
 	//beego.SetStaticPath("/static","public")
 	/*beego.SetStaticPath("/asd","conf")*/
 	//beego.SetStaticPath("/asd", "static/img")
 	beego.Run()
 	o := orm.NewOrm()
-	userlogin := new(LoginUser)
+	userlogin := new(models2.LoginUser)
 	fmt.Println(o.Insert(userlogin))
 	/*
 	1.app.conf

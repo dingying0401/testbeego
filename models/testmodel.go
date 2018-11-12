@@ -1,15 +1,18 @@
-package main
+package models
 
 import (
 "github.com/astaxie/beego/orm"
+_ "github.com/go-sql-driver/mysql"
 		)
 
 type LoginUser struct {
+	Id int
 	username string `form："username"`
 	password string `form: "password"`
 }
 
 type Userinfo struct{
+	Id int
 	Name string `form:"name,text,姓名：  "`
 	Length float32 `form:"length,text,身高： "`
 	Weight float64 `form:"weight,text,体重："`
