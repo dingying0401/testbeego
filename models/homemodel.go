@@ -3,8 +3,7 @@ package models
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/astaxie/beego/orm"
-	"fmt"
-)
+	)
 
 type Userinfo struct{
 	Id int
@@ -29,6 +28,7 @@ func RegisterDB4UserInfo() {
 	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
 
 }
+/*
 
 func BoyInfo(info *Userinfo) *Userinfo {
 	o := orm.NewOrm()
@@ -37,3 +37,4 @@ func BoyInfo(info *Userinfo) *Userinfo {
 	fmt.Println(o.Insert(boyinfo))
 
 }
+*/

@@ -20,11 +20,11 @@ func main() {
 	/*beego.SetStaticPath("/asd","conf")*/
 	//beego.SetStaticPath("/asd", "static/img")
 	orm.Debug = true
-	orm.RunSyncdb("default",true, true)
+	//orm.RunSyncdb("default",true, true)
 	o := orm.NewOrm()
 	userlogin := new(models2.LoginUser)
-	userlogin.Username = "chenchen"
-	userlogin.Password ="chenchen"
+	userlogin.Username = "chenlaogoubi"
+	userlogin.Password ="chenchenlaogoubi"
 	fmt.Println(o.Insert(userlogin))
 	beego.Run()
 	/*

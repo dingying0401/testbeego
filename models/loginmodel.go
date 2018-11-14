@@ -20,16 +20,17 @@ func RegisterDB() {
 	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
 }
 
-func Task (data *LoginUser) string{
+func Task (data *LoginUser) error{
 	o := orm.NewOrm()
-	var i int
-	for i=0; i<= data.Id ;i++{
-	user := LoginUser{Id:i}
+	user := LoginUser{Id:1}
 	test := o.Read(&user)
 		if test != nil {
+			fmt.Printf("---------->"+user.Username, ":"+user.Password)
+			fmt.Println("testifithasbeenprinted",test)
+		} else{
+			fmt.Println("testifithasbeenprinted",test)
 			return test
-		}
-	return ""
 	}
+	return test
 }
 
