@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 
-	"github.com/astaxie/beego/orm"
 	"testbeego/models"
 )
 
@@ -26,12 +25,11 @@ func (c *LoginController) Get() {
 }
 
 func (c *LoginController) Post() {
-	o := orm.NewOrm()
+	//o := orm.NewOrm()
 	userinfo := models.LoginUser{}
 	userinfo.Username = c.GetString("username")
 	userinfo.Password = c.GetString("password")
-	if ( userinfo.Username == models.Task(&userinfo) )
-	{
+	if ( userinfo.Username == models.Task(&userinfo) ){
 		c.Redirect("/home", 301)
 	} else {
 		c.Redirect("/error", 301)

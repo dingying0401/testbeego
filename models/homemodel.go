@@ -22,7 +22,7 @@ type Orderinfo struct {
 	Restweight float64 `form:"restweight,text,剩余体重： "`
 }
 
-func RegisterDB() {
+func RegisterDB4UserInfo() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(Userinfo),new(Orderinfo))
 	orm.RegisterDriver("mysql", orm.DRMySQL)
