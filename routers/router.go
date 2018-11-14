@@ -12,15 +12,7 @@ func init() {
 	beego.Router("/login?:id", &controllers.LoginController{})
 	beego.Router("/error", &controllers.LoginController{},"*:Errorpage")
 	beego.Router("/detail",&controllers.MainController{},"*:Productdetail")
-	//beego.Router("/product", &controllers.SaleController{},"*:Buying")
-	/*beego.Router("/login?:id", &controllers.LoginController{},"post:Post")
 
-	beego.Get("/login/test",func(ctx *context.Context){
-		ctx.Output.Body([]byte("hello world"))
-	})
 
-	beego.Post("/alice",func(ctx *context.Context){
-		ctx.Output.Body([]byte("bob"))
-		//ctx.Output.Header([]byte("dingying","dingying"))
-	})*/
+
 }
