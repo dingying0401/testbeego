@@ -25,11 +25,10 @@ func Task (data *LoginUser) error{
 	user := LoginUser{Id:1}
 	test := o.Read(&user)
 		if test != nil {
-			fmt.Printf("---------->"+user.Username, ":"+user.Password)
 			fmt.Println("testifithasbeenprinted",test)
 		} else{
+			fmt.Printf("---------->"+user.Username, ":"+user.Password)
 			fmt.Println("testifithasbeenprinted",test)
-			return test
 	}
 	return test
 }
