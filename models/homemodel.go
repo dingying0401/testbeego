@@ -25,7 +25,7 @@ func RegisterDB4UserInfo() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(Userinfo),new(Orderinfo))
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.74:3306)/test?charset=utf8")
 
 }
 /*

@@ -1,36 +1,43 @@
 package models
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/astaxie/beego/orm"
 	"fmt"
+	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
 )
 
-type LoginUser struct {
-	Id int
+type LoginInfo struct {
 	Username string `form："username"`
 	Password string `form: "password"`
 }
 
-
-func RegisterDB() {
-	// 需要在init中注册定义的model
-	orm.RegisterModel(new(LoginUser))
-	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
+type LoginUser struct {
+	Id int
+	Username string
+	Password string
 }
 
-func Task (data *LoginUser) error{
+
+/*func RegisterDB() {
+	// 需要在init中注册定义的model
+	orm.RegisterModel(new(LoginUser))
+}*/
+func init()  {
+	orm.RegisterModel(new(LoginUser))
+}
+
+func CheckAuth (data LoginInfo) error{
 	o := orm.NewOrm()
-	user := LoginUser{Id:1}
-	test := o.Read(&user)
-		if test != nil {
-			fmt.Printf("---------->"+user.Username, ":"+user.Password)
-			fmt.Println("testifithasbeenprinted",test)
-		} else{
-			fmt.Println("testifithasbeenprinted",test)
-			return test
+	user := LoginUser{Id: 1}
+
+	err := o.Read(&user)
+	if err == orm.ErrNoRows {
+		fmt.Println("查询不到")
+	} else if err == orm.ErrMissPK {
+		fmt.Println("找不到主键")
+	} else {
+		fmt.Println(user.Id, user.Username)
 	}
-	return test
+	return err
 }
 
