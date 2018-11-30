@@ -28,7 +28,7 @@
         <input type="submit" value="上传文件"/>
       </form>
     </form>
-   <form action="/detail" method="get">
+   <form action="/home/detail" method="get">
    <input type="submit" value="宝贝详情">
    </form>
 </div>

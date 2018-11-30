@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Register</title>
     <meta name="description" content="Login - Register Template">
     <meta name="author" content="Lorenzo Angelino aka MrLolok">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,15 +18,15 @@
 <body>
 <div id="container-login">
     <div id="title">
-        <i class="material-icons lock">lock</i> 登录
+        <i class="material-icons lock">lock</i> 注册
     </div>
 
-    <form method="post" action="/login">
+    <form method="post" action="/register">
         <div class="input">
             <div class="input-addon">
                 <i class="material-icons">face</i>
             </div>
-            <input id="username" name="username" placeholder="用户名" type="text" required class="validate" autocomplete="off">
+            <input id="membername" name="membername" placeholder="用户名" type="text" required class="validate" autocomplete="off">
         </div>
 
         <div class="clearfix"></div>
@@ -35,31 +35,13 @@
             <div class="input-addon">
                 <i class="material-icons">vpn_key</i>
             </div>
-            <input id="password" name="password" placeholder="密码" type="password" required class="validate" autocomplete="off">
+            <input id="memberpassword" name="memberpassword" placeholder="密码" type="password" required class="validate" autocomplete="off">
         </div>
 
-        <div class="remember-me">
-            <input type="checkbox">
-            <span style="color: #DDD">记住密码</span>
-        </div>
-
-
-        <input type="submit" value="登录" />
+    </br>
+        <input type="submit" value="注册" />
+    </br>
     </form>
-
-    <div class="forgot-password">
-        <a href="#">忘记密码</a>
-    </div>
-    <div class="privacy">
-        <a href="#">隐私政策</a>
-    </div>
-    <div class="register">
-        还没有账号？
-        <form action="/register" method="get">
-            <input type="submit" value="点这里注册">
-        </form>
-    </div>
-</div>
 </body>
 
 </html>

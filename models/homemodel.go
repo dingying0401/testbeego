@@ -5,36 +5,38 @@ import (
 	"github.com/astaxie/beego/orm"
 	)
 
-type Userinfo struct{
+type ProductInfo struct{
 	Id int
-	Name string `form:"name,text,姓名：  "`
-	Length float32 `form:"length,text,身高： "`
-	Weight float64 `form:"weight,text,体重："`
-	Briefinfo string `form:"briefinfo,text,简介："`
-	Singleprice float64 `form:"singleprice,text,单价： "`
-	Totalprice float64 `form:"totalprice,text,总价： "`
+	Name string
+	Length float32
+	Weight float64
+	Briefinfo string
+	Singleprice float64
 }
 
-type Orderinfo struct {
+type OrderInfo struct {
 	Id int
-	Loseweight float64 `form:"loseweight,text,购买体重： "`
-	Restweight float64 `form:"restweight,text,剩余体重： "`
+	Loseweight float64
+	Restweight float64
+	Totalprice float64
 }
 
 func RegisterDB4UserInfo() {
-	// 需要在init中注册定义的model
-	orm.RegisterModel(new(Userinfo),new(Orderinfo))
-	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
-
+	//注册定义的model
+	orm.RegisterModel(new(ProductInfo),new(OrderInfo))
 }
+
 /*
-
-func BoyInfo(info *Userinfo) *Userinfo {
+func BoyInfo() *ProductInfo{
 	o := orm.NewOrm()
-	boyinfo := Userinfo{Id: 1}
-	name := o.Read(&boyinfo)
-	fmt.Println(o.Insert(boyinfo))
-
+	qs := o.QueryTable("product_info")
+	err := qs.
+	if err == nil {
+		fmt.Printf("Result Nums: %d\n", num)
+		for _, m := range maps {
+			fmt.Println(m["Id"], m["Name"])
+		}
+	}
+	return err
 }
 */

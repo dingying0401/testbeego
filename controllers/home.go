@@ -10,14 +10,14 @@ type MainController struct {
 }
 
 type Productinfo struct{
-	Name string `form:"name,text,姓名：  "`
-	Length float32 `form:"length,text,身高： "`
-	Weight float64 `form:"weight,text,体重："`
-	Briefinfo string `form:"briefinfo,text,简介："`
+	Name string
+	Length float32
+	Weight float64
+	Briefinfo string
 	Loseweight float64 `form:"loseweight,text,购买体重： "`
-	Restweight float64 `form:"restweight,text,剩余体重： "`
-	Singleprice float64 `form:"singleprice,text,单价： "`
-	Totalprice float64 `form:"totalprice,text,总价： "`
+	Restweight float64
+	Singleprice float64
+	Totalprice float64
 
 }
 
@@ -28,8 +28,10 @@ func (c *MainController) Prepare() {
 func (c *MainController) Evaluate() {
 	boyinfo := Productinfo{}
 	boyinfo.Name = "chen chen"
+	boyinfo.Length =170
 	boyinfo.Weight = 1800
 	boyinfo.Briefinfo ="xiao bi zai"
+	boyinfo.Singleprice = 5
 	boyinfo.Loseweight, _ = c.GetFloat("loseweight")
 	boyinfo.Restweight = boyinfo.Weight - boyinfo.Loseweight
 	boyinfo.Totalprice = boyinfo.Singleprice * boyinfo.Loseweight
@@ -39,10 +41,10 @@ func (c *MainController) Evaluate() {
 	} else {
 		//c.Ctx.WriteString("name: "+boyinfo.Name)
 		//fmt.Println(&list)
-		//c.Data["Form"] = &boyinfo
-		c.Data["json"] = &boyinfo
-		c.ServeJSON()
-		//c.TplName = "index.tpl"
+		c.Data["Form"] = &boyinfo
+		//c.Data["json"] = &boyinfo
+		//c.ServeJSON()
+		c.TplName = "index.tpl"
 		return
 
 	}
@@ -61,3 +63,9 @@ func (c *MainController) Productdetail(){
 	c.TplName="productdetail.tpl"
 
 }
+
+/*func (c *MainController) ListUser(){
+	models.BoyInfo()
+}
+*/
+

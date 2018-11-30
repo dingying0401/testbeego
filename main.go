@@ -1,18 +1,18 @@
 package main
 
 import (
-			_ "testbeego/routers"
+	_ "testbeego/routers"
 
 	"github.com/astaxie/beego"
-				models2	"testbeego/models"
 	"github.com/astaxie/beego/orm"
-	"fmt"
 )
 
 
 
 func init() {
-     models2.RegisterDB()
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
+	//orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.74:3306)/test?charset=utf8")
 
 }
 func main() {
@@ -21,11 +21,11 @@ func main() {
 	//beego.SetStaticPath("/asd", "static/img")
 	orm.Debug = true
 	//orm.RunSyncdb("default",true, true)
-	o := orm.NewOrm()
+	/*o := orm.NewOrm()
 	userlogin := new(models2.LoginUser)
 	userlogin.Username = "chenlaogoubi"
 	userlogin.Password ="chenchenlaogoubi"
-	fmt.Println(o.Insert(userlogin))
+	fmt.Println(o.Insert(userlogin))*/
 	beego.Run()
 	/*
 	1.app.conf

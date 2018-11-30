@@ -17,7 +17,7 @@
 
 <body>
 <div>
-<h3>你的账号密码认证失败！</h3>
+<h3>你的账号认证失败！</h3>
     </div>
 </br>
 <script src="/static/js/reload.min.js"></script>
