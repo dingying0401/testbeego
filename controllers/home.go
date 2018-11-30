@@ -3,7 +3,8 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"log"
-	)
+	"testbeego/models"
+)
 
 type MainController struct {
 	beego.Controller
@@ -64,8 +65,10 @@ func (c *MainController) Productdetail(){
 
 }
 
-/*func (c *MainController) ListUser(){
-	models.BoyInfo()
+func (c *MainController) ListUser(){
+	k:=models.BoyInfo()
+	c.Data["json"] = &k
+	c.ServeJSON()
 }
-*/
+
 

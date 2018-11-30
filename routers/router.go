@@ -13,5 +13,6 @@ func init() {
 	beego.Router("/login/error", &controllers.LoginController{},"*:Errorpage")
 	beego.Router("/home/detail",&controllers.MainController{},"*:Productdetail")
 	beego.Router("/register",&controllers.RegisterController{},"get:Get;post:Register")
+	beego.Router("/home/product",&controllers.MainController{},"*:ListUser")
 
 }

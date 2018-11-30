@@ -3,6 +3,7 @@ package models
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/astaxie/beego/orm"
+	"fmt"
 	)
 
 type ProductInfo struct{
@@ -21,22 +22,24 @@ type OrderInfo struct {
 	Totalprice float64
 }
 
-func RegisterDB4UserInfo() {
+func init() {
 	//注册定义的model
 	orm.RegisterModel(new(ProductInfo),new(OrderInfo))
 }
 
-/*
-func BoyInfo() *ProductInfo{
+
+func BoyInfo() *[]orm.Params {
+	var maps []orm.Params
 	o := orm.NewOrm()
 	qs := o.QueryTable("product_info")
-	err := qs.
+	num,err := qs.Values(&maps)
 	if err == nil {
 		fmt.Printf("Result Nums: %d\n", num)
 		for _, m := range maps {
 			fmt.Println(m["Id"], m["Name"])
+
 		}
 	}
-	return err
+	return &maps
 }
-*/
+
