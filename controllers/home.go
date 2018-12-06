@@ -3,8 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"log"
-	"testbeego/models"
-)
+		)
 
 type MainController struct {
 	beego.Controller
@@ -21,7 +20,6 @@ type Productinfo struct{
 	Totalprice float64
 
 }
-
 
 func (c *MainController) Prepare() {
 
@@ -64,11 +62,4 @@ func (c *MainController) Productdetail(){
 	c.TplName="productdetail.tpl"
 
 }
-
-func (c *MainController) ListUser(){
-	k:=models.BoyInfo()
-	c.Data["json"] = &k
-	c.ServeJSON()
-}
-
 

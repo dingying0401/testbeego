@@ -2,10 +2,9 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-
 	"testbeego/models"
 	"fmt"
-)
+	)
 
 type LoginController struct {
 	beego.Controller
@@ -28,7 +27,7 @@ func (c *LoginController) Post() {
 	userinfo.Password = c.GetString("password")
 	//m := models.CheckAuth(userinfo)
 	//m:=models.CheckAuth(userinfo.Username)
-	k:=models.UserCheck(userinfo.Username,userinfo.Password)
+	k:=models.UserLogin(userinfo.Username,userinfo.Password)
 	if ( k == nil){
 		c.Redirect("/home", 301)
 	} else {
@@ -50,9 +49,9 @@ func (c *RegisterController) Register(){
 	member :=models.LoginUser{}
 	member.Username = c.GetString("membername")
 	member.Password = c.GetString("memberpassword")
-	reslut :=models.RegisterUser(member.Username,member.Password)
+	err :=models.RegisterUser(member.Username,member.Password)
 	if (member.Username != " " && member.Password != " "){
-		if (reslut == nil ){
+		if (err == nil ){
 			//c.Data["json"] = &member
 			//c.ServeJSON()
 			fmt.Println("注册成功")
@@ -64,6 +63,12 @@ func (c *RegisterController) Register(){
 			c.Ctx.WriteString("请输入注册用户数据")
 		}
 }
+
+
+
+
+
+
 
 
 
