@@ -4,22 +4,19 @@ import (
 	_ "testbeego/routers"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
 )
 
-
-
 func init() {
-	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
+	/*orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")*/
 	//orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.74:3306)/test?charset=utf8")
-
 }
+
 func main() {
 	//beego.SetStaticPath("/static","public")
 	/*beego.SetStaticPath("/asd","conf")*/
 	//beego.SetStaticPath("/asd", "static/img")
-	orm.Debug = true
+	/*orm.Debug = true*/
 	//orm.RunSyncdb("default",true, true)
 	/*o := orm.NewOrm()
 	userlogin := new(models2.LoginUser)

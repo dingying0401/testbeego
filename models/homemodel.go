@@ -1,13 +1,39 @@
 package models
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/astaxie/beego/orm"
 	"fmt"
-	)
+	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/xormplus/xorm"
+	"log"
+)
+
+func getDBEngine() *xorm.Engine {
+	//set xorm engine
+	var err error
+	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.200.23:3306)/test?charset=utf8")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//连接测试
+	if err := engine.Ping(); err!=nil{
+		log.Fatal(err)
+	}
+
+	//日志打印SQL
+	engine.ShowSQL(true)
+
+	//set SqlMap 如果要配置sql的xml文件
+	/*err = engine.RegisterSqlMap(xorm.Xml("./sql/oracle", ".xml"))
+	if err != nil {
+		log.Fatal(err)
+	}*/
+	return engine
+}
 
 type ProductInfo struct{
-	Pid int `orm:"column(pid);pk"` // 设置主键
+	Pid int /*`orm:"column(pid);pk"` // 设置主键*/
 	Name string
 	Length float64
 	Weight float64
@@ -16,16 +42,16 @@ type ProductInfo struct{
 }
 
 type OrderInfo struct {
-	Oid int `orm:"column(oid);pk"` // 设置主键
+	Oid int /*`orm:"column(oid);pk"` // 设置主键*/
 	Loseweight float64
 	Totalprice float64
 	Product_id int
 	User_id int
 }
-func init() {
+/*func init() {
 	//注册定义的model
 	orm.RegisterModel(new(ProductInfo),new(OrderInfo))
-}
+}*/
 
 func BoyInfo() *[]orm.Params {
 	var maps []orm.Params
@@ -141,21 +167,30 @@ func DeleteProduct(product_id int) error{
 	return err
 }
 
-func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinfo string, singleprice float64) ProductInfo {
-	o := orm.NewOrm()
-	productinfo := ProductInfo{Pid:pid}
-	err := o.Read(&productinfo)
-	if (err == nil) {
+func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinfo string, singleprice float64) *ProductInfo {
+	/*o := orm.NewOrm()
+	productinfo := ProductInfo{Pid:pid}*/
+	x := getDBEngine()
+	productinfo := new(ProductInfo)
+	has, err := x.Where("pid=?", pid).Get(productinfo)
+	if (has && err == nil) {
 		fmt.Println(productinfo.Name, productinfo.Length, productinfo.Weight, productinfo.Briefinfo, productinfo.Singleprice)
+
 
 		productinfo.Name = pname
 		productinfo.Length = plength
 		productinfo.Weight = pweight
 		productinfo.Briefinfo = pinfo
 		productinfo.Singleprice = singleprice
-		if num, err := o.Update(&productinfo); err == nil {
+		/*if num, err := o.Update(&productinfo); err == nil {
 			fmt.Println(num)
+		}*/
+
+		affected, err := x.Where("pid=?", pid).Update(productinfo)
+		if err == nil{
+			fmt.Print(affected)
 		}
+
 	}
 
 /*
