@@ -51,7 +51,8 @@ type OrderInfo struct {
 
 type OrderDetail struct {
 	Oid int
-	ProductName string
+	Username string
+	Name string
 	Loseweight float64
 	Totalprice float64
 }
@@ -148,8 +149,8 @@ func CheckOrder(order_id int) (error,OrderDetail) {
 	}
 
 	var orderdetailo OrderDetail
-	//result,ree:= o.Raw("SELECT oid, login_user.username,product_info.name as productName ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid left join login_user on order_info.user_id = login_user.Uid where oid = ?",orderdetail.Oid).Exec()
-	result:= o.Raw("SELECT oid, product_info.name as productName ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid where oid = ?",orderdetail.Oid).QueryRow(&orderdetailo)
+	result := o.Raw("SELECT oid, login_user.username,product_info.name ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid left join login_user on order_info.user_id = login_user.Uid where oid = ?",orderdetail.Oid).QueryRow(&orderdetailo)
+	//result:= o.Raw("SELECT oid, product_info.name,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid where oid = ?",orderdetail.Oid).QueryRow(&orderdetailo)
 	/*if ree ==nil{
 			num, _ := result.RowsAffected()
 			fmt.Println("mysql row affected nums: ", num)
