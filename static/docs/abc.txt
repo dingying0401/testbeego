@@ -76,3 +76,43 @@ if userinfo.username == "" || userinfo.password == "" {
 	}
 	return
 }*/
+
+/*
+	switch {
+	case (pname != ""):
+		    productinfo.Name = pname
+			if _, test := o.Update(&productinfo,"Name"); test == nil {
+				fmt.Println("更新数值成功")
+			}
+		fallthrough
+
+	case (plength != 0):
+		    productinfo.Length = plength
+			if _, test := o.Update(&productinfo,"Length"); test == nil {
+				fmt.Println("更新数值成功")
+			}
+
+		fallthrough
+
+	case (pweight != 0):
+		productinfo.Weight = pweight
+			if _, test := o.Update(&productinfo,"Weight"); test == nil {
+			fmt.Println("更新数值成功")
+		}
+			fallthrough
+
+	case (pinfo != ""):
+		productinfo.Briefinfo = pinfo
+			if _, test := o.Update(&productinfo,"Briefinfo"); test == nil {
+				fmt.Println("更新数值成功")
+			}
+
+		fallthrough
+
+	case (singleprice != 0):
+		productinfo.Singleprice = singleprice
+		if _, test := o.Update(&productinfo,"Singleprice"); test == nil {
+			fmt.Println("更新数值成功")
+		}
+
+	}*/

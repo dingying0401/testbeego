@@ -36,11 +36,18 @@ func (c *OrderController) SearchOrder(){
 	}
 }
 
-func (c *OrderController) CheckOrder(){
-    order_id, _ := c.GetInt("oid")
-    orderdetail :=models.CheckOrder(order_id)
-	c.Data["json"] = &orderdetail
-	c.ServeJSON()
+func (c *OrderController) CheckOrder() {
+	order_id, _ := c.GetInt("oid")
+	err, orderdetail := models.CheckOrder(order_id)
+	if err == nil {
+		fmt.Println("查询成功")
+		c.Ctx.WriteString("查询成功")
+		c.Data["json"] = &orderdetail
+		c.ServeJSON()
+	} else {
+		fmt.Println("查询失败")
+		c.Ctx.WriteString("查询失败")
+	}
 }
 
 func (c *OrderController) DeleteOrder(){

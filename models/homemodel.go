@@ -33,7 +33,7 @@ func getDBEngine() *xorm.Engine {
 }
 
 type ProductInfo struct{
-	Pid int /*`orm:"column(pid);pk"` // 设置主键*/
+	Pid int `orm:"column(pid);pk"` // 设置主键*/
 	Name string
 	Length float64
 	Weight float64
@@ -42,16 +42,25 @@ type ProductInfo struct{
 }
 
 type OrderInfo struct {
-	Oid int /*`orm:"column(oid);pk"` // 设置主键*/
+	Oid int `orm:"column(oid);pk"` // 设置主键*/
 	Loseweight float64
 	Totalprice float64
 	Product_id int
 	User_id int
 }
-/*func init() {
+
+type OrderDetail struct {
+	Oid int
+	ProductName string
+	Loseweight float64
+	Totalprice float64
+}
+
+
+func init() {
 	//注册定义的model
 	orm.RegisterModel(new(ProductInfo),new(OrderInfo))
-}*/
+}
 
 func BoyInfo() *[]orm.Params {
 	var maps []orm.Params
@@ -125,7 +134,7 @@ func ListOrder(user_id int) (*[]OrderInfo,error){
 	return &orderinfo,err
 }
 
-func CheckOrder(order_id int) OrderInfo {
+func CheckOrder(order_id int) (error,OrderDetail) {
 	o := orm.NewOrm()
 	orderdetail := OrderInfo{Oid:order_id}
 	err := o.Read(&orderdetail)
@@ -137,7 +146,18 @@ func CheckOrder(order_id int) OrderInfo {
 		fmt.Println(orderdetail.Oid)
 
 	}
-	return orderdetail
+
+	var orderdetailo OrderDetail
+	//result,ree:= o.Raw("SELECT oid, login_user.username,product_info.name as productName ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid left join login_user on order_info.user_id = login_user.Uid where oid = ?",orderdetail.Oid).Exec()
+	result:= o.Raw("SELECT oid, product_info.name as productName ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid where oid = ?",orderdetail.Oid).QueryRow(&orderdetailo)
+	/*if ree ==nil{
+			num, _ := result.RowsAffected()
+			fmt.Println("mysql row affected nums: ", num)
+		}
+	*/
+	return result,orderdetailo
+
+	//return orderdetail
 }
 
 func DeleteOrder(order_id int) error{
@@ -175,8 +195,6 @@ func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinf
 	has, err := x.Where("pid=?", pid).Get(productinfo)
 	if (has && err == nil) {
 		fmt.Println(productinfo.Name, productinfo.Length, productinfo.Weight, productinfo.Briefinfo, productinfo.Singleprice)
-
-
 		productinfo.Name = pname
 		productinfo.Length = plength
 		productinfo.Weight = pweight
@@ -190,48 +208,7 @@ func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinf
 		if err == nil{
 			fmt.Print(affected)
 		}
-
 	}
-
-/*
-	switch {
-	case (pname != ""):
-		    productinfo.Name = pname
-			if _, test := o.Update(&productinfo,"Name"); test == nil {
-				fmt.Println("更新数值成功")
-			}
-		fallthrough
-
-	case (plength != 0):
-		    productinfo.Length = plength
-			if _, test := o.Update(&productinfo,"Length"); test == nil {
-				fmt.Println("更新数值成功")
-			}
-
-		fallthrough
-
-	case (pweight != 0):
-		productinfo.Weight = pweight
-			if _, test := o.Update(&productinfo,"Weight"); test == nil {
-			fmt.Println("更新数值成功")
-		}
-			fallthrough
-
-	case (pinfo != ""):
-		productinfo.Briefinfo = pinfo
-			if _, test := o.Update(&productinfo,"Briefinfo"); test == nil {
-				fmt.Println("更新数值成功")
-			}
-
-		fallthrough
-
-	case (singleprice != 0):
-		productinfo.Singleprice = singleprice
-		if _, test := o.Update(&productinfo,"Singleprice"); test == nil {
-			fmt.Println("更新数值成功")
-		}
-
-	}*/
 	return productinfo
 }
 
