@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/astaxie/beego/context"
+	"strings"
 	_ "testbeego/routers"
 
 	"github.com/astaxie/beego"
@@ -10,16 +11,16 @@ import (
 )
 
 var FilterUser = func(ctx *context.Context) {
-	_, ok := ctx.Input.Session("uid").(int)
-	if !ok && ctx.Request.RequestURI != "/login" {
+	_, ok := ctx.Input.Session("authResult").(string)
+	if !ok && !strings.Contains(ctx.Request.RequestURI, "/login"){
 		ctx.Redirect(302, "/login")
 	}
 }
 
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
-	//orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.74:3306)/test?charset=utf8")
+	//orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.21:3306)/test?charset=utf8")
 
 }
 
@@ -34,6 +35,9 @@ func main() {
 	userlogin.Username = "chenlaogoubi"
 	userlogin.Password ="chenchenlaogoubi"
 	fmt.Println(o.Insert(userlogin))*/
+
+	//open session
+	beego.BConfig.WebConfig.Session.SessionOn = true
 
 	//filter
 	beego.InsertFilter("/*", beego.BeforeRouter, FilterUser)

@@ -27,8 +27,12 @@ func (c *LoginController) Post() {
 	userinfo.Password = c.GetString("password")
 	//m := models.CheckAuth(userinfo)
 	//m:=models.CheckAuth(userinfo.Username)
-	k:=models.UserLogin(userinfo.Username,userinfo.Password)
+	k := models.UserLogin(userinfo.Username, userinfo.Password)
 	if ( k == nil){
+		v := c.GetSession("authResult")
+		if(v == nil){
+			c.SetSession("authResult", "success")
+		}
 		c.Redirect("/home", 301)
 	} else {
 		c.Redirect("/login/error", 301)
