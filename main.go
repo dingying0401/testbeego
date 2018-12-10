@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/astaxie/beego/context"
 	_ "testbeego/routers"
 
 	"github.com/astaxie/beego"
@@ -8,15 +9,19 @@ import (
 
 )
 
+var FilterUser = func(ctx *context.Context) {
+	_, ok := ctx.Input.Session("uid").(int)
+	if !ok && ctx.Request.RequestURI != "/login" {
+		ctx.Redirect(302, "/login")
+	}
+}
+
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
 	//orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.74:3306)/test?charset=utf8")
 
 }
-
-
-
 
 func main() {
 	//beego.SetStaticPath("/static","public")
@@ -29,6 +34,10 @@ func main() {
 	userlogin.Username = "chenlaogoubi"
 	userlogin.Password ="chenchenlaogoubi"
 	fmt.Println(o.Insert(userlogin))*/
+
+	//filter
+	beego.InsertFilter("/*", beego.BeforeRouter, FilterUser)
+
 	beego.Run()
 	/*
 	1.app.conf
