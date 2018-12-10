@@ -26,21 +26,15 @@ func init() {
 
 func main() {
 	//beego.SetStaticPath("/static","public")
-	/*beego.SetStaticPath("/asd","conf")*/
-	//beego.SetStaticPath("/asd", "static/img")
 	orm.Debug = true
-	//orm.RunSyncdb("default",true, true)
-	/*o := orm.NewOrm()
-	userlogin := new(models2.LoginUser)
-	userlogin.Username = "chenlaogoubi"
-	userlogin.Password ="chenchenlaogoubi"
-	fmt.Println(o.Insert(userlogin))*/
-
+	orm.RunSyncdb("default",true, true)
 	//open session
-	beego.BConfig.WebConfig.Session.SessionOn = true
-
+	//beego.BConfig.WebConfig.Session.SessionOn = true
 	//filter
-	beego.InsertFilter("/*", beego.BeforeRouter, FilterUser)
+	//beego.InsertFilter("/home/?:id",beego.BeforeRouter,FilterUser)
+	beego.InsertFilter("/user/?:id", beego.BeforeRouter, FilterUser)
+	beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
+	beego.InsertFilter("/admin/?:id",beego.BeforeRouter,FilterUser)
 
 	beego.Run()
 	/*

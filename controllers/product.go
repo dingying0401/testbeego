@@ -18,11 +18,11 @@ func (c *ProductController) ListUser(){
 
 }
 func (c *ProductController) SearchProduct(){
-	id,err:=c.GetInt("id")
+	pid,err:=c.GetInt("pid")
 	if(err != nil){
 		println(err)
 	}
-	pname,productinfo:=models.SearchProduct(id)
+	pname,productinfo:=models.SearchProduct(pid)
 	fmt.Println(pname)
 	c.Data["json"] = &productinfo
 	c.ServeJSON()

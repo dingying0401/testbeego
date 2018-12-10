@@ -11,7 +11,7 @@ import (
 func getDBEngine() *xorm.Engine {
 	//set xorm engine
 	var err error
-	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.200.23:3306)/test?charset=utf8")
+	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.200.21:3306)/test?charset=utf8")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,7 +63,7 @@ func init() {
 	orm.RegisterModel(new(ProductInfo),new(OrderInfo))
 }
 
-func BoyInfo() *[]orm.Params {
+/*func BoyInfo() *[]orm.Params {
 	var maps []orm.Params
 	o := orm.NewOrm()
 	qs := o.QueryTable("product_info")
@@ -75,10 +75,10 @@ func BoyInfo() *[]orm.Params {
 		}
 	}
 	return &maps
-}
-func SearchProduct(id int) (float64, ProductInfo)  {
+}*/
+func SearchProduct(pid int) (float64, ProductInfo)  {
 	o := orm.NewOrm()
-	product := ProductInfo{Pid: id}
+	product := ProductInfo{Pid: pid}
 	err := o.Read(&product)
 	if err == orm.ErrNoRows {
 		fmt.Println("查询不到")

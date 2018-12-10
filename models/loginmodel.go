@@ -1,6 +1,6 @@
 package models
 
-import (
+/*import (
 		"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
