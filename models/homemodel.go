@@ -135,7 +135,7 @@ func ListOrder(user_id int) (*[]OrderInfo,error){
 	return &orderinfo,err
 }
 
-func CheckOrder(order_id int) (error,OrderDetail) {
+func CheckOrder(order_id int) (error,OrderDetail,string) {
 	o := orm.NewOrm()
 	orderdetail := OrderInfo{Oid:order_id}
 	err := o.Read(&orderdetail)
@@ -156,7 +156,8 @@ func CheckOrder(order_id int) (error,OrderDetail) {
 			fmt.Println("mysql row affected nums: ", num)
 		}
 	*/
-	return result,orderdetailo
+	fmt.Println(orderdetailo.Name)
+	return result,orderdetailo,orderdetailo.Name
 
 	//return orderdetail
 }

@@ -43,6 +43,7 @@ func (c *LoginController) Errorpage(){
 
 func (c *RegisterController) Get(){
 	c.TplName = "login/register.tpl"
+
 }
 
 func (c *RegisterController) Register(){
@@ -65,6 +66,19 @@ func (c *RegisterController) Register(){
 }
 
 
+func (c *LoginController) FilterUser(){
+	_, ok := c.Ctx.Input.Session("uid").(int)
+	if !ok && c.Ctx.Request.RequestURI != "/login" {
+		c.Ctx.Redirect(302, "/login")
+	}
+}
+
+var FilterUser = func(ctx *context.Context) {
+	_, ok := ctx.Input.Session("uid").(int)
+	if !ok && ctx.Request.RequestURI != "/login" {
+		ctx.Redirect(302, "/login")
+	}
+}
 
 
 

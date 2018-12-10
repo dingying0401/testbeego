@@ -5,13 +5,18 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+
 )
 
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
 	//orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.74:3306)/test?charset=utf8")
+
 }
+
+
+
 
 func main() {
 	//beego.SetStaticPath("/static","public")
@@ -35,4 +40,5 @@ func main() {
 	7.监听服务端口：ListenAndServer
 	 */
 }
+
 
