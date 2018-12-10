@@ -2,13 +2,12 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"testbeego/models"
-)
+	)
 
 type AdminController struct {
 	beego.Controller
 }
-
+/*
 func (c *AdminController) DeleteProduct(){
 	product_id, _ := c.GetInt("pid")
 	err := models.DeleteProduct(product_id)
@@ -18,7 +17,8 @@ func (c *AdminController) DeleteProduct(){
 		c.Ctx.WriteString("删除商品失败")
 	}
 }
-
+*/
+/*
 func (c *AdminController) UpdateProduct(){
 	pid,_ := c.GetInt("pid")
 	pname := c.GetString("pname")
@@ -31,3 +31,4 @@ func (c *AdminController) UpdateProduct(){
 	c.ServeJSON()
 
 }
+*/

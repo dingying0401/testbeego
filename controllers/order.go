@@ -1,16 +1,13 @@
 package controllers
 
 import (
-	"fmt"
-	"github.com/astaxie/beego"
-	"testbeego/models"
-
-)
+		"github.com/astaxie/beego"
+	)
 
 type OrderController struct {
 	beego.Controller
 }
-
+/*
 func (c *OrderController) HandleOrder() {
 	user_id, _ := c.GetInt("uid")
 	loseweight, _ := c.GetFloat("loseweight")
@@ -24,7 +21,8 @@ func (c *OrderController) HandleOrder() {
 	}
 
 }
-
+*/
+/*
 func (c *OrderController) SearchOrder(){
 	user_id, _ := c.GetInt("uid")
 	orderlist,err := models.ListOrder(user_id)
@@ -35,6 +33,8 @@ func (c *OrderController) SearchOrder(){
 		c.Ctx.WriteString("抱歉查询不到您的订单")
 	}
 }
+*/
+/*
 
 func (c *OrderController) CheckOrder() {
 	order_id, _ := c.GetInt("oid")
@@ -50,7 +50,7 @@ func (c *OrderController) CheckOrder() {
 		c.Ctx.WriteString("查询失败")
 	}
 }
-
+*//*
 func (c *OrderController) DeleteOrder(){
 	order_id, _ := c.GetInt("oid")
 	err := models.DeleteOrder(order_id)
@@ -60,5 +60,6 @@ func (c *OrderController) DeleteOrder(){
 		c.Ctx.WriteString("删除订单失败")
 	}
 }
+*/
 
 

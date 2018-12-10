@@ -27,7 +27,7 @@ func init() {
 func main() {
 	//beego.SetStaticPath("/static","public")
 	orm.Debug = true
-	orm.RunSyncdb("default",true, true)
+	//orm.RunSyncdb("default",true, true)
 	//open session
 	//beego.BConfig.WebConfig.Session.SessionOn = true
 	//filter

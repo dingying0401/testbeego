@@ -1,9 +1,7 @@
 package models
 
 import (
-	"fmt"
-	"github.com/astaxie/beego/orm"
-	_ "github.com/go-sql-driver/mysql"
+			_ "github.com/go-sql-driver/mysql"
 	"github.com/xormplus/xorm"
 	"log"
 )
@@ -32,17 +30,17 @@ func getDBEngine() *xorm.Engine {
 	return engine
 }
 
-type ProductInfo struct{
-	Pid int `orm:"column(pid);pk"` // 设置主键*/
+/*type ProductInfo struct{
+	Pid int `xorm:"pk"`//`orm:"column(pid);pk"` // 设置主键
 	Name string
 	Length float64
 	Weight float64
 	Briefinfo string
 	Singleprice float64
-}
-
+}*/
+/*
 type OrderInfo struct {
-	Oid int `orm:"column(oid);pk"` // 设置主键*/
+	Oid int `orm:"column(oid);pk"` // 设置主键
 	Loseweight float64
 	Totalprice float64
 	Product_id int
@@ -60,7 +58,7 @@ type OrderDetail struct {
 
 func init() {
 	//注册定义的model
-	orm.RegisterModel(new(ProductInfo),new(OrderInfo))
+	orm.RegisterModel(new(OrderInfo))
 }
 
 /*func BoyInfo() *[]orm.Params {
@@ -76,6 +74,7 @@ func init() {
 	}
 	return &maps
 }*/
+/*
 func SearchProduct(pid int) (float64, ProductInfo)  {
 	o := orm.NewOrm()
 	product := ProductInfo{Pid: pid}
@@ -155,13 +154,13 @@ func CheckOrder(order_id int) (error,OrderDetail,string) {
 			num, _ := result.RowsAffected()
 			fmt.Println("mysql row affected nums: ", num)
 		}
-	*/
+	*//*
 	fmt.Println(orderdetailo.Name)
 	return result,orderdetailo,orderdetailo.Name
 
 	//return orderdetail
-}
-
+}*/
+/*
 func DeleteOrder(order_id int) error{
 	o := orm.NewOrm()
 	oderdetail := OrderInfo{Oid:order_id}
@@ -175,7 +174,7 @@ func DeleteOrder(order_id int) error{
 	return err
 }
 
-
+/*
 func DeleteProduct(product_id int) error{
 	o := orm.NewOrm()
 	productdetail := ProductInfo{Pid:product_id}
@@ -189,9 +188,11 @@ func DeleteProduct(product_id int) error{
 	return err
 }
 
+*/
+/*
 func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinfo string, singleprice float64) *ProductInfo {
-	/*o := orm.NewOrm()
-	productinfo := ProductInfo{Pid:pid}*/
+	//o := orm.NewOrm()
+	//productinfo := ProductInfo{Pid:pid}
 	x := getDBEngine()
 	productinfo := new(ProductInfo)
 	has, err := x.Where("pid=?", pid).Get(productinfo)
@@ -202,9 +203,7 @@ func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinf
 		productinfo.Weight = pweight
 		productinfo.Briefinfo = pinfo
 		productinfo.Singleprice = singleprice
-		/*if num, err := o.Update(&productinfo); err == nil {
-			fmt.Println(num)
-		}*/
+
 
 		affected, err := x.Where("pid=?", pid).Update(productinfo)
 		if err == nil{
@@ -213,6 +212,7 @@ func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinf
 	}
 	return productinfo
 }
+*/
 
 
 

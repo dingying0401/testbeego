@@ -2,8 +2,7 @@ package controllers
 
 import (
 	"testbeego/models"
-	"fmt"
-	"github.com/astaxie/beego"
+		"github.com/astaxie/beego"
 )
 type ProductController struct {
 	beego.Controller
@@ -17,6 +16,7 @@ func (c *ProductController) ListUser(){
 	//c.TplName ="index.tpl"
 
 }
+/*
 func (c *ProductController) SearchProduct(){
 	pid,err:=c.GetInt("pid")
 	if(err != nil){
@@ -27,6 +27,7 @@ func (c *ProductController) SearchProduct(){
 	c.Data["json"] = &productinfo
 	c.ServeJSON()
 }
+*/
 
 
 
