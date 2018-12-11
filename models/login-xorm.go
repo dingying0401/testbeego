@@ -7,7 +7,7 @@ _ "github.com/go-sql-driver/mysql"
 )
 
 type LoginUser struct {
-	Uid int `orm:"column(uid);pk"`
+	Uid int `xorm:"pk"`
 	Username string
 	Password string
 }

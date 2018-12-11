@@ -15,9 +15,9 @@ func init() {
 
 	//beego.Router("/home/detail",&controllers.MainController{},"*:Productdetail")
 	beego.Router("/home/product",&controllers.ProductController{},"*:ListUser")
-	//beego.Router("/home/productinfo",&controllers.ProductController{},"*:SearchProduct")
+	beego.Router("/home/productinfo",&controllers.ProductController{},"*:SearchProduct")
 
-	//beego.Router("/home/shop",&controllers.OrderController{},"*:HandleOrder")
+	beego.Router("/home/shop",&controllers.OrderController{},"*:HandleOrder")
 	//beego.Router("/user/order",&controllers.OrderController{},"*:SearchOrder")
 	//beego.Router("/user/order/detail",&controllers.OrderController{},"*:CheckOrder")
 	//beego.Router("/user/order/delete",&controllers.OrderController{},"*:DeleteOrder")

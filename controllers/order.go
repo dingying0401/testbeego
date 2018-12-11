@@ -2,12 +2,14 @@ package controllers
 
 import (
 		"github.com/astaxie/beego"
-	)
+	"testbeego/models"
+	"fmt"
+)
 
 type OrderController struct {
 	beego.Controller
 }
-/*
+
 func (c *OrderController) HandleOrder() {
 	user_id, _ := c.GetInt("uid")
 	loseweight, _ := c.GetFloat("loseweight")
@@ -21,7 +23,7 @@ func (c *OrderController) HandleOrder() {
 	}
 
 }
-*/
+
 /*
 func (c *OrderController) SearchOrder(){
 	user_id, _ := c.GetInt("uid")
