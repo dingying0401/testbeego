@@ -4,11 +4,8 @@ import (
 	"github.com/astaxie/beego/context"
 	"strings"
 	_ "testbeego/routers"
-
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
-
-)
+	)
 
 var FilterUser = func(ctx *context.Context) {
 	_, ok := ctx.Input.Session("authResult").(string)
@@ -18,23 +15,24 @@ var FilterUser = func(ctx *context.Context) {
 }
 
 func init() {
+	/*
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	//orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
-	orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.200.21:3306)/test?charset=utf8")
-
+	orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.225.15:3306)/test?charset=utf8")
+*/
 }
 
 func main() {
 	//beego.SetStaticPath("/static","public")
-	orm.Debug = true
+	//orm.Debug = true
 	//orm.RunSyncdb("default",true, true)
 	//open session
-	//beego.BConfig.WebConfig.Session.SessionOn = true
+	beego.BConfig.WebConfig.Session.SessionOn = true
 	//filter
-	//beego.InsertFilter("/home/?:id",beego.BeforeRouter,FilterUser)
-	beego.InsertFilter("/user/?:id", beego.BeforeRouter, FilterUser)
+	beego.InsertFilter("/home/*",beego.BeforeRouter,FilterUser)
+	beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
 	beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
-	beego.InsertFilter("/admin/?:id",beego.BeforeRouter,FilterUser)
+	beego.InsertFilter("/admin/*",beego.BeforeRouter,FilterUser)
 
 	beego.Run()
 	/*

@@ -18,12 +18,12 @@ func init() {
 	beego.Router("/home/productinfo",&controllers.ProductController{},"*:SearchProduct")
 
 	beego.Router("/home/shop",&controllers.OrderController{},"*:HandleOrder")
-	//beego.Router("/user/order",&controllers.OrderController{},"*:SearchOrder")
-	//beego.Router("/user/order/detail",&controllers.OrderController{},"*:CheckOrder")
-	//beego.Router("/user/order/delete",&controllers.OrderController{},"*:DeleteOrder")
+	beego.Router("/user/order",&controllers.OrderController{},"*:SearchOrder")
+	beego.Router("/user/order/detail",&controllers.OrderController{},"*:CheckOrder")
+	beego.Router("/user/order/delete",&controllers.OrderController{},"*:DeleteOrder")
 
-	//beego.Router("/admin/product/delete",&controllers.AdminController{},"*:DeleteProduct")
-	//beego.Router("/admin/product/update",&controllers.AdminController{},"*:UpdateProduct")
+	beego.Router("/admin/product/delete",&controllers.AdminController{},"*:DeleteProduct")
+	beego.Router("/admin/product/update",&controllers.AdminController{},"*:UpdateProduct")
 
 
 }

@@ -1,15 +1,17 @@
 package models
 
+/*
 import (
 			_ "github.com/go-sql-driver/mysql"
 	"github.com/xormplus/xorm"
 	"log"
 )
 
+
 func getDBEngine() *xorm.Engine {
 	//set xorm engine
 	var err error
-	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.200.21:3306)/test?charset=utf8")
+	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.225.15:3306)/test?charset=utf8")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -26,9 +28,10 @@ func getDBEngine() *xorm.Engine {
 	/*err = engine.RegisterSqlMap(xorm.Xml("./sql/oracle", ".xml"))
 	if err != nil {
 		log.Fatal(err)
-	}*/
+	}
 	return engine
 }
+*/
 
 /*type ProductInfo struct{
 	Pid int `xorm:"pk"`//`orm:"column(pid);pk"` // 设置主键
@@ -187,8 +190,9 @@ func DeleteProduct(product_id int) error{
 	}
 	return err
 }
-
 */
+
+
 /*
 func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinfo string, singleprice float64) *ProductInfo {
 	//o := orm.NewOrm()
