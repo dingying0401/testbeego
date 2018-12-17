@@ -7,9 +7,14 @@ _ "github.com/go-sql-driver/mysql"
 )
 
 type LoginUser struct {
-	Uid int `xorm:"pk"`
+	Uid int `xorm:"pk autoincr"`
 	Username string
 	Password string
+	Email string
+	Ifvip string
+	Address string
+	Auth string
+	Phone string
 }
 func init()  {
 
@@ -26,12 +31,13 @@ func FuncUserLogin(username,userpwd string) error{
 	return err
 }
 
-func FuncRegisterUser(username,userpwd string) error{
-	//o := orm.NewOrm()
+func FuncRegisterUser(username,userpwd,email string) error{
 	x:= getDBEngine()
-	user := LoginUser{Username:username,Password:userpwd}
+	user := LoginUser{Username:username,Password:userpwd,Email:email,Ifvip:"no",Auth:"user"}
 	affected, err := x.Insert(&user)
 	fmt.Println(affected)
 	return err
 }
+
+
 

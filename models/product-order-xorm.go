@@ -6,6 +6,7 @@ _ "github.com/go-sql-driver/mysql"
 	"errors"
 	"github.com/xormplus/xorm"
 	"log"
+	"time"
 )
 type ProductInfo struct{
 	Pid int `xorm:"pk autoincr"`//`orm:"column(pid);pk"` // 设置主键*/
@@ -22,6 +23,7 @@ type OrderInfo struct {
 	Totalprice float64
 	Product_id int
 	User_id int
+	Updatetime time.Time `xorm:"updated"`
 }
 
 type OrderDetail struct {
@@ -36,7 +38,7 @@ type OrderDetail struct {
 func getDBEngine() *xorm.Engine {
 	//set xorm engine
 	var err error
-	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.225.15:3306)/test?charset=utf8")
+	engine, err := xorm.NewMySQL("mysql", "root:dingying@tcp(10.71.200.21:3306)/test?charset=utf8&loc=Asia%2FShanghai")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -215,3 +217,4 @@ func CheckOrder(order_id int) (error,[]OrderDetail) {
 	//errs := x.SQL("SELECT oid, login_user.username,product_info.name ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid left join login_user on order_info.user_id = login_user.Uid where oid = ?",orderdetail.Oid).Find(&orderdetailo)
 	return errs,orderdetailo
 }
+

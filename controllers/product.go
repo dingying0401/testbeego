@@ -4,6 +4,7 @@ import (
 	"testbeego/models"
 		"github.com/astaxie/beego"
 	"fmt"
+	"math"
 )
 type ProductController struct {
 	beego.Controller
@@ -35,6 +36,40 @@ func (c *ProductController) SearchProduct(){
 
 }
 
+func (c *ProductController) CouponCalculate(){
+	var maxcouponvalue,mincouponvalue float64
+	var allowancemax,allowancemin float64
+	var discount float64
+	var vipdiscount float64
+	var ifvip string
+	var price float64
+	var shopcart float64
+	maxcouponvalue,_ = c.GetFloat("maxcouponvalue")
+	mincouponvalue,_ = c.GetFloat("mincouponvalue")
+	discount,_ = c.GetFloat("discount")
+	allowancemax,_ = c.GetFloat("allowancemax")
+	allowancemin,_ = c.GetFloat("allowancemin")
+	user_id,_ := c.GetInt("uid")
+	_, ifvip = models.Checkvip(user_id)
+	shopcart,_ = c.GetFloat("shopcartprice")
+	if (shopcart < maxcouponvalue){
+		if (ifvip =="yes"){
+			vipdiscount = 0.95
+			}else{
+				vipdiscount = 1
+			}
+			price = shopcart*vipdiscount*discount -(shopcart/allowancemax)*allowancemin
+		}else{
+		if (ifvip =="yes"){
+			vipdiscount = 0.95
+		}else{
+			vipdiscount = 1
+		}
+		price = shopcart*vipdiscount*discount-math.Floor(shopcart/allowancemax)*allowancemin-mincouponvalue
+	}
+	c.Data["json"] = &price
+	c.ServeJSON()
+}
 
 
 

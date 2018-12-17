@@ -21,10 +21,13 @@ func init() {
 	beego.Router("/user/order",&controllers.OrderController{},"*:SearchOrder")
 	beego.Router("/user/order/detail",&controllers.OrderController{},"*:CheckOrder")
 	beego.Router("/user/order/delete",&controllers.OrderController{},"*:DeleteOrder")
+	beego.Router("/user/info",&controllers.UserController{},"*:UpdateUserInfo")
 
 	beego.Router("/admin/product/delete",&controllers.AdminController{},"*:DeleteProduct")
 	beego.Router("/admin/product/update",&controllers.AdminController{},"*:UpdateProduct")
+	beego.Router("/shopcart",&controllers.ProductController{},"*:CouponCalculate")
 
+	beego.Router("/vip",&controllers.UserController{},"*:VipOrder")
 
 }
 

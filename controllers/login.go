@@ -54,7 +54,8 @@ func (c *RegisterController) Register(){
 	member :=models.LoginUser{}
 	member.Username = c.GetString("membername")
 	member.Password = c.GetString("memberpassword")
-	err :=models.FuncRegisterUser(member.Username,member.Password)
+	member.Email = c.GetString("memberemail")
+	err :=models.FuncRegisterUser(member.Username,member.Password,member.Email)
 	if (member.Username != " " && member.Password != " "){
 		if (err == nil ){
 			//c.Data["json"] = &member

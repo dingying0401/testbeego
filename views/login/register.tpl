@@ -38,6 +38,13 @@
             <input id="memberpassword" name="memberpassword" placeholder="密码" type="password" required class="validate" autocomplete="off">
         </div>
 
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">face</i>
+            </div>
+            <input id="memberemail" name="memberemail" placeholder="邮箱" type="text" required class="validate" autocomplete="off">
+        </div>
+
     </br>
         <input type="submit" value="注册" />
     </br>
