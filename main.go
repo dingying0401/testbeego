@@ -1,17 +1,42 @@
 package main
 
 import (
-	"github.com/astaxie/beego/context"
-	"strings"
-	_ "testbeego/routers"
+	"errors"
 	"github.com/astaxie/beego"
-	)
+	"github.com/astaxie/beego/context"
+	"github.com/dgrijalva/jwt-go"
+	"testbeego/controllers"
+	_ "testbeego/routers"
+)
+
+
 
 var FilterUser = func(ctx *context.Context) {
+
+	var this *controllers.LoginController
+	this =new(controllers.LoginController)
+	usernames := this.GetString("username")
+	token, e := this.ParseToken()
+	if e != nil {
+		beego.Error(e)
+		return
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		errors.New("errPermission")
+		return
+	}
+	var user string = claims["username"].(string)
+	if (user != usernames){
+		ctx.Redirect(302, "/login")
+	}
+/*
 	_, ok := ctx.Input.Session("authResult").(string)
 	if !ok && !strings.Contains(ctx.Request.RequestURI, "/login"){
 		ctx.Redirect(302, "/login")
+
 	}
+*/
 }
 
 func init() {
@@ -33,6 +58,9 @@ func main() {
 	beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
 	beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
 	beego.InsertFilter("/admin/*",beego.BeforeRouter,FilterUser)
+
+
+
 
 	beego.Run()
 	/*

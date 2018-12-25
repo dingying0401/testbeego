@@ -13,7 +13,7 @@ type LoginUser struct {
 	Email string
 	Ifvip string
 	Address string
-	Auth string
+	Role string
 	Phone string
 }
 func init()  {
@@ -33,11 +33,12 @@ func FuncUserLogin(username,userpwd string) error{
 
 func FuncRegisterUser(username,userpwd,email string) error{
 	x:= getDBEngine()
-	user := LoginUser{Username:username,Password:userpwd,Email:email,Ifvip:"no",Auth:"user"}
+	user := LoginUser{Username:username,Password:userpwd,Email:email,Ifvip:"no",Role:"user"}
 	affected, err := x.Insert(&user)
 	fmt.Println(affected)
 	return err
 }
+
 
 
 
