@@ -1,11 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/dgrijalva/jwt-go"
-	"testbeego/controllers"
+	"strings"
 	_ "testbeego/routers"
 )
 
@@ -13,9 +14,85 @@ import (
 
 var FilterUser = func(ctx *context.Context) {
 
-	var this *controllers.LoginController
-	this =new(controllers.LoginController)
-	usernames := this.GetString("username")
+	//获取request body中的内容
+	buf := make([]byte, 1024)
+	n, _ := ctx.Request.Body.Read(buf)
+	var requestBody = string(buf[0:n])
+	//将body内容转换成map对象
+	var requestMap map[string]interface{}
+	err := json.Unmarshal([]byte(requestBody), &requestMap)
+	if(err != nil){
+		beego.Error(err)
+		ctx.Redirect(302, "/login")
+		return
+	}
+	//获取request中的username
+	username := requestMap["username"]
+
+	//get token内容
+	authString := ctx.Request.Header.Get("Authorization")
+	beego.Debug("AuthString:", authString)
+
+	kv := strings.Split(authString, " ")
+	if len(kv) != 2 || kv[0] != "Bearer" {
+		beego.Error("AuthString invalid:", authString)
+		ctx.WriteString("login failed")
+		ctx.Redirect(302, "/login")
+		return
+	}
+	tokenString := kv[1]
+
+	// Parse token
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte("mykey"), nil
+	})
+	if err != nil {
+		if ve, ok := err.(*jwt.ValidationError); ok {
+			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
+				// That's not even a token
+				beego.Error("Parse token failed:", err)
+				beego.Error("Parse token:", err)
+				ctx.Redirect(302, "/login")
+				return
+			} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
+				// Token is either expired or not active yet
+				beego.Error("token expired:", err)
+				ctx.Redirect(302, "/login")
+				return
+			} else {
+				// Couldn't handle this token
+				beego.Error("failed:", err)
+				ctx.Redirect(302, "/login")
+				return
+			}
+		} else {
+			// Couldn't handle this token
+			beego.Error("failed:", err)
+			ctx.Redirect(302, "/login")
+			return
+		}
+	}
+	if !token.Valid {
+		beego.Error("Token invalid:", tokenString)
+		ctx.Redirect(302, "/login")
+		return
+	}
+	beego.Debug("Token:", token)
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		errors.New("errPermission")
+		ctx.Redirect(302, "/login")
+		return
+	}
+	var user string = claims["username"].(string)
+	if (user != username){
+		beego.Error("no auth to operate other user's content")
+		ctx.Redirect(302, "/login")
+		return
+	}
+
+	/*usernames := this.GetString("username")
 	token, e := this.ParseToken()
 	if e != nil {
 		beego.Error(e)
@@ -29,7 +106,7 @@ var FilterUser = func(ctx *context.Context) {
 	var user string = claims["username"].(string)
 	if (user != usernames){
 		ctx.Redirect(302, "/login")
-	}
+	}*/
 /*
 	_, ok := ctx.Input.Session("authResult").(string)
 	if !ok && !strings.Contains(ctx.Request.RequestURI, "/login"){
@@ -56,7 +133,7 @@ func main() {
 	//filter
 	beego.InsertFilter("/home/*",beego.BeforeRouter,FilterUser)
 	beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
-	beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
+	//beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
 	beego.InsertFilter("/admin/*",beego.BeforeRouter,FilterUser)
 
 

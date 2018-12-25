@@ -38,6 +38,5 @@ func init() {
 	beego.Router("/shopcart",&controllers.ProductController{},"*:CouponCalculate")
 
 	beego.Router("/vip",&controllers.UserController{},"*:VipOrder")
-	beego.Router("/check/token",&controllers.LoginController{},"*:ParseToken")
 }
 

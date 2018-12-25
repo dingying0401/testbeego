@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"errors"
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/dgrijalva/jwt-go"
-	"strings"
 	"testbeego/models"
 	"time"
 )
@@ -90,52 +88,6 @@ func (c *RegisterController) Register(){
 	}else{
 			c.Ctx.WriteString("请输入注册用户数据")
 		}
-}
-
-func (c *LoginController) ParseToken() (t *jwt.Token, e error) {
-	authString := c.Ctx.Input.Header("Authorization")
-	beego.Debug("AuthString:", authString)
-
-	kv := strings.Split(authString, " ")
-	if len(kv) != 2 || kv[0] != "Bearer" {
-		beego.Error("AuthString invalid:", authString)
-		test := errors.New("prase token failed")
-		c.Ctx.WriteString("login failed")
-		return nil,test
-	}
-	tokenString := kv[1]
-
-	// Parse token
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		return []byte("mykey"), nil
-	})
-	if err != nil {
-		beego.Error("Parse token:", err)
-		if ve, ok := err.(*jwt.ValidationError); ok {
-			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				// That's not even a token
-				return nil, err
-			} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
-				// Token is either expired or not active yet
-				return nil, err
-			} else {
-				// Couldn't handle this token
-				return nil, err
-			}
-		} else {
-			// Couldn't handle this token
-			return nil, err
-		}
-	}
-	if !token.Valid {
-		beego.Error("Token invalid:", tokenString)
-		flag := errors.New("token invalid")
-		return nil, flag
-	}
-	beego.Debug("Token:", token)
-	c.Ctx.WriteString("login success")
-	return token, nil
-
 }
 
 
