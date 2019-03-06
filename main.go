@@ -13,7 +13,6 @@ import (
 
 
 var FilterUser = func(ctx *context.Context) {
-
 	//获取request body中的内容
 	buf := make([]byte, 1024)
 	n, _ := ctx.Request.Body.Read(buf)
