@@ -8,9 +8,12 @@ import (
 	"time"
 )
 
+//登陆模块，引用beego.Controller对象
 type LoginController struct {
 	beego.Controller
 }
+
+//注册模块
 type RegisterController struct {
 	beego.Controller
 }
@@ -19,6 +22,8 @@ func (c *LoginController) Prepare() {
 
 }
 
+//GET方法，进入登陆界面
+//
 func (c *LoginController) Get() {
 	c.TplName = "login/login.tpl"
 }

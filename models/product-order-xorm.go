@@ -38,7 +38,7 @@ type OrderDetail struct {
 func getDBEngine() *xorm.Engine {
 	//set xorm engine
 	var err error
-	engine, err := xorm.NewMySQL("mysql", "root:adminpwd@tcp(leslie.funnyblack.cn:3306)/test?charset=utf8&loc=Asia%2FShanghai")
+	engine, err := xorm.NewMySQL("mysql", "root:adminpwd@tcp(127.0.0.1:3306)/test?charset=utf8&loc=Asia%2FShanghai")
 	if err != nil {
 		log.Fatal(err)
 	}
