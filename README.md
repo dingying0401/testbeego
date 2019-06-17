@@ -7,7 +7,11 @@ https://beego.me/docs/intro/
 ``
 
 ### 系统信息
+<<<<<<< HEAD
 - 登陆访问：www.xiaobizai.com：33333/login
+=======
+- 登陆访问：www.xiaobizai.com/login
+>>>>>>> b310bf3f40b9b0807e1164b6a48f84f1bd155665
 - 本地配置域名：hosts: 127.0.0.1 www.xiaobizai.com
 - xorm安装：
 ``
