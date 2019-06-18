@@ -2,21 +2,22 @@ package controllers
 
 import (
 	"testbeego/models"
-		"github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 	"fmt"
 	"math"
 )
+
+//商品页面
 type ProductController struct {
 	beego.Controller
 }
 
 func (c *ProductController) ListUser(){
-	k:=models.BoyInfo()
+	k := models.BoyInfo()
 	c.Data["json"] = &k
 	c.ServeJSON()
-	//c.Data["Form"] = &k
+	//c.Data["Form"] = &kgi
 	//c.TplName ="index.tpl"
-
 }
 
 func (c *ProductController) SearchProduct(){

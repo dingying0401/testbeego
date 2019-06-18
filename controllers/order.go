@@ -1,15 +1,17 @@
 package controllers
 
 import (
-		"github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 	"testbeego/models"
 	"fmt"
 	)
 
+//订单的查看 搜索 管理控制器
 type OrderController struct {
 	beego.Controller
 }
 
+//购买商品（uid），生成订单记录
 func (c *OrderController) HandleOrder() {
 	user_id, _ := c.GetInt("uid")
 	loseweight, _ := c.GetFloat("loseweight")
@@ -24,6 +26,8 @@ func (c *OrderController) HandleOrder() {
 	}
 
 }
+
+//搜索历史全部（uid）购买记录（查询全部订单）
 func (c *OrderController) SearchOrder(){
 	user_id, _ := c.GetInt("uid")
 	orderlist,err := models.ListOrder(user_id)
@@ -40,6 +44,7 @@ func (c *OrderController) SearchOrder(){
 
 }
 
+//删除订单记录（oid）
 func (c *OrderController) DeleteOrder(){
 	order_id, _ := c.GetInt("oid")
 	err := models.DeleteOrder(order_id)
@@ -50,6 +55,7 @@ func (c *OrderController) DeleteOrder(){
 	}
 }
 
+//查询某条订单记录（oid）
 func (c *OrderController) CheckOrder() {
 	order_id, _ := c.GetInt("oid")
 	err, orderdetail := models.CheckOrder(order_id)

@@ -9,6 +9,8 @@ type AdminController struct {
 	beego.Controller
 }
 
+
+//删除商品
 func (c *AdminController) DeleteProduct(){
 	product_id, _ := c.GetInt("pid")
 	err := models.DeleteProduct(product_id)
@@ -20,6 +22,8 @@ func (c *AdminController) DeleteProduct(){
 }
 
 
+
+//更新商品信息
 func (c *AdminController) UpdateProduct(){
 	pid,_ := c.GetInt("pid")
 	pname := c.GetString("pname")

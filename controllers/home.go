@@ -2,13 +2,15 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"log"
-		)
+)
 
 type MainController struct {
 	beego.Controller
 }
 
+
+//商品信息
+//姓名 身高 体重 简介 购买体重数量 剩余体重数量 体重单价 购买总价
 type Productinfo struct{
 	Name string
 	Length float32
@@ -24,6 +26,8 @@ type Productinfo struct{
 func (c *MainController) Prepare() {
 
 }
+
+/*//体重估价器
 func (c *MainController) Evaluate() {
 	boyinfo := Productinfo{}
 	boyinfo.Name = "chen chen"
@@ -48,6 +52,8 @@ func (c *MainController) Evaluate() {
 
 	}
 }
+
+//文件上传功能
 func (c *MainController) Upload(){
 	f, h, err := c.GetFile("uploadname")
 	if err != nil {
@@ -57,9 +63,13 @@ func (c *MainController) Upload(){
 	c.SaveToFile("uploadname", "static/upload/" + h.Filename) // 保存位置在 static/upload, 没有文件夹要先创建
 
 }
+
+//页面详情页
 func (c *MainController) Productdetail(){
 	beego.URLFor("Maincontroller.Productdetail")
 	c.TplName="productdetail.tpl"
 
 }
+*/
+
 

@@ -7,11 +7,8 @@ https://beego.me/docs/intro/
 ``
 
 ### 系统信息
-<<<<<<< HEAD
-- 登陆访问：www.xiaobizai.com：33333/login
-=======
-- 登陆访问：www.xiaobizai.com/login
->>>>>>> b310bf3f40b9b0807e1164b6a48f84f1bd155665
+
+- 登陆访问：www.xiaobizai.com:33333/login
 - 本地配置域名：hosts: 127.0.0.1 www.xiaobizai.com
 - xorm安装：
 ``
@@ -27,7 +24,7 @@ xorm.NewMySQL("mysql", "root:password@tcp(127.0.0.1:3306)/test?charset=utf8&loc=
 /test.sql
 ``
 #### 登陆模块
-登陆/注册逻辑
+登陆/注册逻辑/错误页面
 
 #### 主页
 商品：增删改查？
@@ -37,5 +34,5 @@ xorm.NewMySQL("mysql", "root:password@tcp(127.0.0.1:3306)/test?charset=utf8&loc=
 
 ##### 用户信息
 用户信息管理？
- 
+管理员
 

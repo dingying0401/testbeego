@@ -23,11 +23,12 @@ func (c *LoginController) Prepare() {
 }
 
 //GET方法，进入登陆界面
-//
 func (c *LoginController) Get() {
 	c.TplName = "login/login.tpl"
 }
 
+//POST，输入用户名密码，并经过jwt验证
+//好像没有验证？如果库里没有，则自动跳转到注册页面？？还是用户名密码错误了，跳转到提示
 func (c *LoginController) Post() {
 	userinfo := models.LoginUser{}
 	userinfo.Username = c.GetString("username")
@@ -65,16 +66,19 @@ func (c *LoginController) Post() {
 
 }
 
+//登陆错误
 func (c *LoginController) Errorpage(){
 	c.TplName = "login/errorpage.tpl"
 
 }
 
+//注册页面
 func (c *RegisterController) Get(){
 	c.TplName = "login/register.tpl"
 
 }
 
+//POST用户名密码进行注册用户
 func (c *RegisterController) Register(){
 	member :=models.LoginUser{}
 	member.Username = c.GetString("membername")
