@@ -1,5 +1,7 @@
 package models
 
+/*orm功能示例*/
+
 /*
 import (
 			_ "github.com/go-sql-driver/mysql"

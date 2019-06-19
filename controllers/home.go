@@ -1,15 +1,16 @@
 package controllers
 
-import (
+
+/*import (
 	"github.com/astaxie/beego"
 )
 
 type MainController struct {
 	beego.Controller
-}
+}*/
 
 
-//商品信息
+/*商品信息
 //姓名 身高 体重 简介 购买体重数量 剩余体重数量 体重单价 购买总价
 type Productinfo struct{
 	Name string
@@ -22,12 +23,11 @@ type Productinfo struct{
 	Totalprice float64
 
 }
+*/
 
-func (c *MainController) Prepare() {
 
-}
-
-/*//体重估价器
+/*
+//体重估价器
 func (c *MainController) Evaluate() {
 	boyinfo := Productinfo{}
 	boyinfo.Name = "chen chen"

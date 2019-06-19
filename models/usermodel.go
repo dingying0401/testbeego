@@ -2,6 +2,7 @@ package models
 
 import "fmt"
 
+/*购买vip（更新会员信息）*/
 func FuncVipShop(uid int) error{
 	x:= getDBEngine()
 	vip := LoginUser{Ifvip:"yes"}
@@ -15,7 +16,7 @@ func FuncVipShop(uid int) error{
 	return err
 }
 
-
+/*查看是否是vip*/
 func Checkvip(uid int) (error,string){
 	x:= getDBEngine()
 	vip := LoginUser{}
@@ -29,6 +30,7 @@ func Checkvip(uid int) (error,string){
 	return err,vip.Ifvip
 }
 
+/*更新用户信息*/
 func EditUserinfo(uid int,email string,address string, phone string) *LoginUser {
 		x := getDBEngine()
 		userinfo := new(LoginUser)
@@ -49,4 +51,4 @@ func EditUserinfo(uid int,email string,address string, phone string) *LoginUser 
 		fmt.Println(num)
 	}
 		return userinfo
-	}
+}

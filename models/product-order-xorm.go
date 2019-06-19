@@ -1,15 +1,30 @@
 package models
 
 import (
-"fmt"
-_ "github.com/go-sql-driver/mysql"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"errors"
 	"github.com/xormplus/xorm"
 	"log"
 	"time"
 )
+
+/*
+产品以及订单模块
+用户可以选择商品购买商品的重量，购买成功则会生成一个用户的订单记录，订单记录关联uid以及pid
+*/
+
+/*
+商品信息：
+商品id 唯一
+商品名称（商品暂时是贩卖帅哥）
+商品身高 （帅哥简介）
+商品体重 (贩卖的个数是帅哥的体重)
+商品简介
+*/
 type ProductInfo struct{
-	Pid int `xorm:"pk autoincr"`//`orm:"column(pid);pk"` // 设置主键*/
+	// 设置主键
+	Pid int `xorm:"pk autoincr"`//`orm:"column(pid);pk"`
 	Name string
 	Length float64
 	Weight float64
@@ -17,8 +32,18 @@ type ProductInfo struct{
 	Singleprice float64
 }
 
+/*
+订单信息：
+订单id 唯一
+购买的数量（购买帅哥的体重斤数）
+当时的购买价格
+商品id
+用户id
+更新时间
+*/
 type OrderInfo struct {
-	Oid int  `xorm:"pk autoincr"` //`orm:"column(oid);pk"` // 设置主键
+	// 设置主键
+	Oid int  `xorm:"pk autoincr"` //`orm:"column(oid);pk"`
 	Loseweight float64
 	Totalprice float64
 	Product_id int
@@ -26,6 +51,7 @@ type OrderInfo struct {
 	Updatetime time.Time `xorm:"updated"`
 }
 
+/*no idea*/
 type OrderDetail struct {
 	OrderInfo `xorm:"extends"`
 	Name string
@@ -35,6 +61,7 @@ type OrderDetail struct {
 	//LoginUser `xorm:"extends"`
 }
 
+/*xorm初始化配置 beego数据库插件*/
 func getDBEngine() *xorm.Engine {
 	//set xorm engine
 	var err error
@@ -59,6 +86,7 @@ func getDBEngine() *xorm.Engine {
 	return engine
 }
 
+/*查询所有商品信息*/
 func BoyInfo() map[int64]ProductInfo {
 	x := getDBEngine()
 	users := make(map[int64]ProductInfo)
@@ -71,6 +99,7 @@ func BoyInfo() map[int64]ProductInfo {
 	return users
 }
 
+/*查询某个商品（pid）*/
 func SearchProduct(pid int) (float64, *ProductInfo,bool) {
 	x := getDBEngine()
 	user := &ProductInfo{Pid:pid}
@@ -87,6 +116,8 @@ func SearchProduct(pid int) (float64, *ProductInfo,bool) {
 
 	return user.Singleprice,user,has
 }
+
+/*贩卖商品逻辑，要注意购买的库存数，当商品库存不足时，则提示库存不足，不能购买*/
 func SaleProduct(uid,pid int,loseweight float64) error {
 	x := getDBEngine()
 	var flag error
@@ -105,6 +136,8 @@ func SaleProduct(uid,pid int,loseweight float64) error {
 	var orderinfo OrderInfo
 	var singleprice float64
 	var weight float64
+
+	//读取剩余库存
 	weight = productinfo.Weight
 	singleprice = productinfo.Singleprice
 	orderinfo.Loseweight = loseweight
@@ -136,7 +169,7 @@ func SaleProduct(uid,pid int,loseweight float64) error {
 	return flag
 }
 
-
+/*查询订单(oid)*/
 func ListOrder(user_id int) (map[int64]OrderInfo,error){
 	x := getDBEngine()
 	orderinfo := make(map[int64]OrderInfo)
@@ -150,6 +183,7 @@ func ListOrder(user_id int) (map[int64]OrderInfo,error){
 	return orderinfo,err
 }
 
+/*删除订单（oid）*/
 func DeleteOrder(order_id int) error{
 	x := getDBEngine()
 	oderdetail := OrderInfo{}
@@ -163,6 +197,7 @@ func DeleteOrder(order_id int) error{
 	return err
 }
 
+/*删除商品（pid）*/
 func DeleteProduct(product_id int) error{
 	x := getDBEngine()
 	productdetail := ProductInfo{}
@@ -175,6 +210,8 @@ func DeleteProduct(product_id int) error{
 	}
 	return err
 }
+
+/*更新商品信息（pid），更新的内容有商品名称，身高，体重，简介，单价*/
 func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinfo string, singleprice float64) *ProductInfo {
 	x := getDBEngine()
 	productinfo := new(ProductInfo)
@@ -200,7 +237,7 @@ func UpdateProductinfo(pid int,pname string,plength float64,pweight float64,pinf
 	return productinfo
 }
 
-
+/*查询订单（oid）*/
 func CheckOrder(order_id int) (error,[]OrderDetail) {
 	x := getDBEngine()
 	orderdetail := OrderInfo{}

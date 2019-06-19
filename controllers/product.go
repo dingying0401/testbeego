@@ -12,6 +12,7 @@ type ProductController struct {
 	beego.Controller
 }
 
+/*用json展示所有的商品列表*/
 func (c *ProductController) ListUser(){
 	k := models.BoyInfo()
 	c.Data["json"] = &k
@@ -20,6 +21,7 @@ func (c *ProductController) ListUser(){
 	//c.TplName ="index.tpl"
 }
 
+/*查询商品（pid）*/
 func (c *ProductController) SearchProduct(){
 	pid,err:=c.GetInt("pid")
 	if(err != nil){
@@ -34,16 +36,23 @@ func (c *ProductController) SearchProduct(){
 		fmt.Println("商品不存在")
 		c.Ctx.WriteString("您要查询的商品不存在")
 	}
-
 }
 
+/*天猫优惠券以及折扣计算*/
 func (c *ProductController) CouponCalculate(){
+	//优惠券最大值-优惠券最小值（优惠券面额）
 	var maxcouponvalue,mincouponvalue float64
+	//津贴最大-津贴最小（津贴额度）
 	var allowancemax,allowancemin float64
+	//产品打折折扣
 	var discount float64
+	//vip折扣
 	var vipdiscount float64
+	//用户是否是vip会员
 	var ifvip string
+	//原价
 	var price float64
+	//所有折扣后的价格
 	var shopcart float64
 	maxcouponvalue,_ = c.GetFloat("maxcouponvalue")
 	mincouponvalue,_ = c.GetFloat("mincouponvalue")
