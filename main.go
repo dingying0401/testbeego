@@ -10,8 +10,6 @@ import (
 	_ "testbeego/routers"
 )
 
-
-
 var FilterUser = func(ctx *context.Context) {
 	//获取request body中的内容
 	buf := make([]byte, 1024)
@@ -119,7 +117,7 @@ func init() {
 	/*
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	//orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
-	orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(10.71.225.15:3306)/test?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(127.0.0.1:3306)/test?charset=utf8")
 */
 }
 
