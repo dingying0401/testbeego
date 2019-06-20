@@ -23,7 +23,7 @@ xorm.NewMySQL("mysql", "root:password@tcp(127.0.0.1:3306)/test?charset=utf8&loc=
 ``
 /test.sql
 ``
-###系统简介
+### 系统简介
 本系统是一个模拟在线交易系统。主要角色有购买者（user）和商品管理者(admin)两种。
 - 购买者和商品管理者共享一套用户登陆体系
 - 购买者在注册账号后，可登陆交易页面
