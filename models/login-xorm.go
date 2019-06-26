@@ -20,7 +20,7 @@ import "fmt"
 */
 type LoginUser struct {
 	Uid int `xorm:"pk autoincr"`
-	Username string
+	Username string `xorm:"unique"`
 	Password string
 	Email string
 	Ifvip string
@@ -30,16 +30,37 @@ type LoginUser struct {
 }
 
 /*登陆函数*/
-func FuncUserLogin(username,userpwd string) error{
+func FuncUserLogin(username,userpwd string) (bool,error){
 	x := getDBEngine()
 	m := LoginUser{}
-	_,err :=x.Where("Username = ?", username).And("Password = ?",userpwd).Get(&m)
-	if err ==nil{
-		fmt.Println("查询成功")
+	has,err :=x.Where("Username = ?", username).And("Password = ?",userpwd).Get(&m)
+	if err == nil{
+		if has == true {
+			fmt.Println("登陆用户名密码校验成功")
+		}else {
+			fmt.Println("登陆用户名密码校验失败")
+		}
 	}else{
 		fmt.Println("查询失败")
 	}
-	return err
+	return has, err
+}
+
+/*判断登陆名是否存在*/
+func Ifuserex(username string) (bool,error){
+	x := getDBEngine()
+	m := LoginUser{}
+	has,err :=x.Where("Username = ?", username).Get(&m)
+	if err == nil{
+		if has == true {
+			fmt.Println("该用户存在")
+		}else {
+			fmt.Println("该用户不存在")
+		}
+	}else{
+		fmt.Println("查询失败")
+	}
+	return has, err
 }
 
 /*注册函数*/
@@ -48,6 +69,11 @@ func FuncRegisterUser(username,userpwd,email string) error{
 	user := LoginUser{Username:username,Password:userpwd,Email:email,Ifvip:"no",Role:"user"}
 	affected, err := x.Insert(&user)
 	fmt.Println(affected)
+	if err == nil{
+		fmt.Printf("注册用户名密码成功")
+	}else {
+		fmt.Printf("用户名密码注册失败")
+	}
 	return err
 }
 

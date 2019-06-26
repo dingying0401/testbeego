@@ -17,9 +17,9 @@
 
 <body>
 <div>
-<h3>你的账号认证失败！请检查是否密码输入正确</h3>
-    </div>
+    <h3>用户名重复，请重新注册</h3>
+</div>
 </br>
 <script src="/static/js/reload.min.js"></script>
-        </body>
+</body>
         </html>

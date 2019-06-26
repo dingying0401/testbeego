@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"testbeego/models"
-	"fmt"
-	)
+)
 
 /*订单的查看 搜索 管理控制器*/
 type OrderController struct {
@@ -21,36 +21,37 @@ func (c *OrderController) HandleOrder() {
 		fmt.Println("购买商品成功")
 		c.Redirect("/home/product", 301)
 	} else {
-			fmt.Println("剩余产品库存不足或者更新商品信息失败")
-			c.Ctx.WriteString("剩余产品库存不足，或购买失败，请尝试选择合适的购买量")
+		fmt.Println("剩余产品库存不足或者更新商品信息失败")
+		c.Ctx.WriteString("剩余产品库存不足，或购买失败，请尝试选择合适的购买量")
 	}
 
 }
 
 /*搜索历史全部（uid）购买记录（查询全部订单）*/
-func (c *OrderController) SearchOrder(){
+func (c *OrderController) SearchOrder() {
 	user_id, _ := c.GetInt("uid")
-	orderlist,err := models.ListOrder(user_id)
+	orderlist, err := models.ListOrder(user_id)
 	//返回结果是空的时候，这里不生效？？？？？不知道空的Map应该定义为啥
-	if (orderlist == nil){
-		c.Ctx.WriteString("抱歉查询不到您的订单")}else{
-			if (err ==nil){
-				c.Data["json"] = &orderlist
-				c.ServeJSON()
-			}else{
+	if (orderlist == nil) {
+		c.Ctx.WriteString("抱歉查询不到您的订单")
+	} else {
+		if (err == nil) {
+			c.Data["json"] = &orderlist
+			c.ServeJSON()
+		} else {
 			c.Ctx.WriteString("抱歉查询不到您的订单")
 		}
-		}
+	}
 
 }
 
 /*删除订单记录（oid）*/
-func (c *OrderController) DeleteOrder(){
+func (c *OrderController) DeleteOrder() {
 	order_id, _ := c.GetInt("oid")
 	err := models.DeleteOrder(order_id)
-	if err ==nil {
+	if err == nil {
 		c.Ctx.WriteString("删除订单成功")
-	}else{
+	} else {
 		c.Ctx.WriteString("删除订单失败")
 	}
 }
@@ -70,9 +71,3 @@ func (c *OrderController) CheckOrder() {
 		c.Ctx.WriteString("查询失败")
 	}
 }
-
-
-
-
-
-

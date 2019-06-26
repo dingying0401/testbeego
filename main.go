@@ -5,18 +5,21 @@ import (
 	"errors"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"  //Golang implementation of JSON Web Tokens (JWT)
 	"strings"
 	_ "testbeego/routers"
 )
 
+/*jwt服务端*/
 var FilterUser = func(ctx *context.Context) {
 	//获取request body中的内容
 	buf := make([]byte, 1024)
 	n, _ := ctx.Request.Body.Read(buf)
 	var requestBody = string(buf[0:n])
+
 	//将body内容转换成map对象
 	var requestMap map[string]interface{}
+	//json解析map
 	err := json.Unmarshal([]byte(requestBody), &requestMap)
 	if(err != nil){
 		beego.Error(err)
@@ -128,7 +131,7 @@ func main() {
 	//open session
 	beego.BConfig.WebConfig.Session.SessionOn = true
 	//filter
-	beego.InsertFilter("/home/*",beego.BeforeRouter,FilterUser)
+	beego.InsertFilter("/home/shop",beego.BeforeRouter,FilterUser)
 	beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
 	//beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
 	beego.InsertFilter("/admin/*",beego.BeforeRouter,FilterUser)
