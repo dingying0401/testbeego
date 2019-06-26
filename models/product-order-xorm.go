@@ -23,8 +23,7 @@ import (
 商品简介
 */
 type ProductInfo struct {
-	// 设置主键
-	Pid         int `xorm:"pk autoincr"` //`orm:"column(pid);pk"`
+	Pid         int `xorm:"pk autoincr"` //`orm:"column(pid);pk"` // 设置主键
 	Name        string
 	Length      float64
 	Weight      float64
@@ -42,8 +41,7 @@ type ProductInfo struct {
 更新时间
 */
 type OrderInfo struct {
-	// 设置主键
-	Oid        int `xorm:"pk autoincr"` //`orm:"column(oid);pk"`
+	Oid        int `xorm:"pk autoincr"` //`orm:"column(oid);pk"` // 设置主键
 	Loseweight float64
 	Totalprice float64
 	Product_id int
@@ -141,7 +139,7 @@ func SaleProduct(uid, pid int, loseweight float64) error {
 	weight = productinfo.Weight
 	singleprice = productinfo.Singleprice
 	orderinfo.Loseweight = loseweight
-	if (weight >= 0 && loseweight <= weight) {
+	if weight >= 0 && loseweight <= weight {
 		weight = weight - loseweight
 		productinfo.Weight = weight
 		fmt.Println(productinfo.Weight)
@@ -157,7 +155,7 @@ func SaleProduct(uid, pid int, loseweight float64) error {
 		orderinfo.Product_id = pid
 		orderinfo.Totalprice = singleprice * loseweight
 		affected, result := x.Insert(&orderinfo)
-		if (result == nil) {
+		if result == nil {
 			flag = result
 			fmt.Println(affected)
 			return flag
@@ -216,7 +214,7 @@ func UpdateProductinfo(pid int, pname string, plength float64, pweight float64, 
 	x := getDBEngine()
 	productinfo := new(ProductInfo)
 	has, err := x.Where("pid=?", pid).Get(productinfo)
-	if (has && err == nil) {
+	if has && err == nil {
 		fmt.Println(productinfo.Name, productinfo.Length, productinfo.Weight, productinfo.Briefinfo, productinfo.Singleprice)
 		productinfo.Name = pname
 		productinfo.Length = plength

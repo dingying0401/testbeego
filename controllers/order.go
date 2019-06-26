@@ -17,7 +17,7 @@ func (c *OrderController) HandleOrder() {
 	loseweight, _ := c.GetFloat("loseweight")
 	product_id, _ := c.GetInt("pid")
 	result := models.SaleProduct(user_id, product_id, loseweight)
-	if (result == nil) {
+	if result == nil {
 		fmt.Println("购买商品成功")
 		c.Redirect("/home/product", 301)
 	} else {
@@ -32,10 +32,10 @@ func (c *OrderController) SearchOrder() {
 	user_id, _ := c.GetInt("uid")
 	orderlist, err := models.ListOrder(user_id)
 	//返回结果是空的时候，这里不生效？？？？？不知道空的Map应该定义为啥
-	if (orderlist == nil) {
+	if orderlist == nil {
 		c.Ctx.WriteString("抱歉查询不到您的订单")
 	} else {
-		if (err == nil) {
+		if err == nil {
 			c.Data["json"] = &orderlist
 			c.ServeJSON()
 		} else {
