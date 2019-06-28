@@ -43,12 +43,16 @@ func init() {
 	beego.Router("/admin/product/delete", &controllers.AdminController{}, "*:DeleteProduct")
 	//更新商品信息
 	beego.Router("/admin/product/update", &controllers.AdminController{}, "*:UpdateProduct")
-	//折扣计算
-	beego.Router("/shopcart", &controllers.ProductController{}, "*:CouponCalculate")
+	beego.Router("/admin/product/add", &controllers.AdminController{}, "*:AddProduct")
+
+
+
 
 	/*vip会员操作*/
 	//购买vip会员
 	beego.Router("/vip", &controllers.UserController{}, "*:VipOrder")
+	//折扣计算
+	beego.Router("/shopcart", &controllers.ProductController{}, "*:CouponCalculate")
 
 	/*test*/
 	beego.Router("/test/token", &controllers.LoginController{}, "*:TestToken")

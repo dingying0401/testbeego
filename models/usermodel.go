@@ -35,7 +35,7 @@ func EditUserinfo(uid int, email string, address string, phone string) *LoginUse
 	x := getDBEngine()
 	userinfo := new(LoginUser)
 	has, err := x.Where("Uid=?", uid).Get(userinfo)
-	if (has && err == nil) {
+	if has && err == nil {
 		fmt.Println(userinfo.Username)
 		userinfo.Email = email
 		userinfo.Address = address

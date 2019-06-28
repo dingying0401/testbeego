@@ -11,7 +11,7 @@ type UserController struct {
 
 /*购买会员，成为vip用户*/
 func (c *UserController) VipOrder() {
-	user_id, _ := c.GetInt("Uid")
+	user_id, _ := c.GetInt("uid")
 	err := models.FuncVipShop(user_id)
 	if err == nil {
 		c.Ctx.WriteString("购买会员成功")

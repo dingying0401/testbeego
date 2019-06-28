@@ -33,3 +33,16 @@ func (c *AdminController) UpdateProduct() {
 	c.ServeJSON()
 
 }
+
+/*上架新的商品*/
+func (c *AdminController) AddProduct() {
+	pname := c.GetString("pname")
+	pweight, _ := c.GetFloat("pweight")
+	plength, _ := c.GetFloat("plength")
+	pinfo := c.GetString("pinfo")
+	singleprice, _ := c.GetFloat("singleprice")
+	result := models.FuncAddProduct(pname, pinfo, plength, pweight, singleprice)
+	c.Data["json"] = &result
+	c.ServeJSON()
+
+}

@@ -265,3 +265,17 @@ func CheckOrder(order_id int) (error, []OrderDetail) {
 	//errs := x.SQL("SELECT oid, login_user.username,product_info.name ,loseweight, totalprice from order_info left join product_info on order_info.product_id=product_info.pid left join login_user on order_info.user_id = login_user.Uid where oid = ?",orderdetail.Oid).Find(&orderdetailo)
 	return errs, orderdetailo
 }
+
+/*上架新的商品*/
+func FuncAddProduct(pname,pinfo string, plength,pweight,singleprice float64 ) error {
+	x := getDBEngine()
+	products := ProductInfo{Name:pname, Length:plength, Weight:pweight, Briefinfo:pinfo, Singleprice:singleprice}
+	affected, err := x.Insert(products)
+	if err == nil {
+		fmt.Println(affected)
+		fmt.Printf("更新商品成功")
+	} else {
+		fmt.Println("更新商品失败")
+	}
+	return err
+}

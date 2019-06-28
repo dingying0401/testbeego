@@ -12,19 +12,21 @@ import (
 
 /*jwt服务端*/
 var FilterUser = func(ctx *context.Context) {
+	var username interface{}
+	//获取请求（get/post）中的query （username params）
+	m := ctx.Input.Query("username")
+
 	//获取request body中的内容
 	buf := make([]byte, 1024)
 	n, _ := ctx.Request.Body.Read(buf)
-	m := ctx.Input.Query("username")
 	var requestBody = string(buf[0:n])
-	var username interface{}
 	if requestBody != "" {
 		//将body内容转换成map对象
 		var requestMap map[string]interface{}
 
 		//json解析map
 		err := json.Unmarshal([]byte(requestBody), &requestMap)
-		if (err != nil) {
+		if err != nil {
 			beego.Error(err)
 			ctx.Redirect(302, "/login")
 			return
@@ -90,6 +92,8 @@ var FilterUser = func(ctx *context.Context) {
 		ctx.Redirect(302, "/login")
 		return
 	}
+
+	//判断token中的username是否与登陆的username一致，同一个用户才有权限操控账户下的资源
 	var user string = claims["username"].(string)
 	if user != username {
 		beego.Error("no auth to operate other user's content")
@@ -102,7 +106,6 @@ var FilterUser = func(ctx *context.Context) {
 func init() {
 	/*
 		orm.RegisterDriver("mysql", orm.DRMySQL)
-		//orm.RegisterDataBase("default", "mysql", "root:dingying@/test?charset=utf8")
 		orm.RegisterDataBase("default", "mysql", "root:dingying@tcp(127.0.0.1:3306)/test?charset=utf8")
 	*/
 }
@@ -115,7 +118,7 @@ func main() {
 	beego.BConfig.WebConfig.Session.SessionOn = true
 	//filter
 	beego.InsertFilter("/home/shop", beego.BeforeRouter, FilterUser)
-	//beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
+	beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
 	//beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
 	//beego.InsertFilter("/admin/*", beego.BeforeRouter, FilterUser)
 	beego.InsertFilter("/test/token", beego.BeforeRouter, FilterUser)
