@@ -19,16 +19,16 @@ func (c *ProductController) ListUser() {
 	c.ServeJSON()
 }
 
-/*查询商品（pid）*/
+/*查询商品（pid)*/
 func (c *ProductController) SearchProduct() {
 	pid, err := c.GetInt("pid")
 	if err != nil {
 		println("获取不到商品id")
 	}
-	price, productinfo, has := models.SearchProduct(pid)
+	SinglePrice, ProductInfo, has := models.SearchProduct(pid)
 	if has == true {
-		fmt.Println(price)
-		c.Data["json"] = &productinfo
+		fmt.Println(SinglePrice)
+		c.Data["json"] = &ProductInfo
 		c.ServeJSON()
 	} else {
 		fmt.Println("商品不存在")
@@ -47,7 +47,7 @@ func (c *ProductController) CouponCalculate() {
 	//vip折扣
 	var vipdiscount float64
 	//用户是否是vip会员
-	var ifvip string
+	var ifvip bool
 	//原价
 	var price float64
 	//所有折扣后的价格
@@ -61,14 +61,14 @@ func (c *ProductController) CouponCalculate() {
 	_, ifvip = models.Checkvip(user_id)
 	shopcart, _ = c.GetFloat("shopcartprice")
 	if shopcart < maxcouponvalue {
-		if ifvip == "yes" {
+		if ifvip == true {
 			vipdiscount = 0.95
 		} else {
 			vipdiscount = 1
 		}
 		price = shopcart*vipdiscount*discount - (shopcart/allowancemax)*allowancemin
 	} else {
-		if ifvip == "yes" {
+		if ifvip == true {
 			vipdiscount = 0.95
 		} else {
 			vipdiscount = 1

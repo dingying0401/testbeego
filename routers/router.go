@@ -21,7 +21,7 @@ func init() {
 	//注册
 	beego.Router("/register", &controllers.RegisterController{}, "get:Get;post:Register")
 	//注册失败
-	beego.Router("/register/error", &controllers.RegisterController{}, "*:RegistErrorpage")
+	beego.Router("/register/error", &controllers.RegisterController{}, "*:RegErrorPage")
 
 	/*商品页面：商品搜索*/
 	//展示所有的商品列表
@@ -49,6 +49,9 @@ func init() {
 	/*vip会员操作*/
 	//购买vip会员
 	beego.Router("/vip", &controllers.UserController{}, "*:VipOrder")
+
+	/*test*/
+	beego.Router("/test/token", &controllers.LoginController{}, "*:TestToken")
 
 	//beego.Router("/home", &controllers.MainController{},"*:Evaluate")
 	//商品详情

@@ -52,7 +52,7 @@ func (c *LoginController) Post() {
 		/*c.Data["json"] = map[string]interface{}{"status": 200, "message": "login success ", "moreinfo": tokenString}
 		c.Data["json"] = tokenString
 		c.ServeJSON()*/
-		fmt.Printf(tokenString)
+		fmt.Println("这里是tokenstring:", tokenString)
 		if err != nil {
 			beego.Error("jwt.SignedString:", err)
 		}
@@ -105,6 +105,17 @@ func (c *RegisterController) Register() {
 	}
 }
 
-func (c *RegisterController) RegistErrorpage() {
+func (c *RegisterController) RegErrorPage() {
 	c.TplName = "login/errorpageregister.tpl"
+}
+
+func (c *LoginController) TestToken() {
+	//userinfo := models.LoginUser{}
+	a := c.GetString("username")
+	//userinfo.Password = c.GetString("password")
+	fmt.Printf(a)
+	c.TplName = "login/errorpage.tpl"
+	//c.Data["json"] = userinfo
+	//c.ServeJSON()
+
 }

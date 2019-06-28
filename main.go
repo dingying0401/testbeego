@@ -15,23 +15,27 @@ var FilterUser = func(ctx *context.Context) {
 	//获取request body中的内容
 	buf := make([]byte, 1024)
 	n, _ := ctx.Request.Body.Read(buf)
+	m := ctx.Input.Query("username")
 	var requestBody = string(buf[0:n])
+	var username interface{}
+	if requestBody != "" {
+		//将body内容转换成map对象
+		var requestMap map[string]interface{}
 
-	//将body内容转换成map对象
-	var requestMap map[string]interface{}
-
-	//json解析map
-	err := json.Unmarshal([]byte(requestBody), &requestMap)
-	if (err != nil) {
-		beego.Error(err)
-		ctx.Redirect(302, "/login")
-		return
+		//json解析map
+		err := json.Unmarshal([]byte(requestBody), &requestMap)
+		if (err != nil) {
+			beego.Error(err)
+			ctx.Redirect(302, "/login")
+			return
+		}
+		//获取request中的username
+		username = requestMap["username"]
+	} else {
+		username = m
 	}
-	//获取request中的username
-	username := requestMap["username"]
-
 	//get token内容
-	authString := ctx.Request.Header.Get("Authorization")
+	authString := ctx.Input.Header("Authorization")
 	beego.Debug("AuthString:", authString)
 
 	kv := strings.Split(authString, " ")
@@ -87,11 +91,12 @@ var FilterUser = func(ctx *context.Context) {
 		return
 	}
 	var user string = claims["username"].(string)
-	if (user != username) {
+	if user != username {
 		beego.Error("no auth to operate other user's content")
 		ctx.Redirect(302, "/login")
 		return
 	}
+
 }
 
 func init() {
@@ -110,10 +115,10 @@ func main() {
 	beego.BConfig.WebConfig.Session.SessionOn = true
 	//filter
 	beego.InsertFilter("/home/shop", beego.BeforeRouter, FilterUser)
-	beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
+	//beego.InsertFilter("/user/*", beego.BeforeRouter, FilterUser)
 	//beego.InsertFilter("/login/?:id", beego.BeforeRouter, FilterUser)
-	beego.InsertFilter("/admin/*", beego.BeforeRouter, FilterUser)
-
+	//beego.InsertFilter("/admin/*", beego.BeforeRouter, FilterUser)
+	beego.InsertFilter("/test/token", beego.BeforeRouter, FilterUser)
 	beego.Run()
 	/*
 		1.app.conf
