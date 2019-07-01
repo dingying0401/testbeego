@@ -6,7 +6,7 @@ import "fmt"
 func FuncVipShop(uid int) error {
 	x := getDBEngine()
 	vip := LoginUser{Ifvip: true}
-	affected, err := x.Where("Uid=?", uid).Update(vip)
+	affected, err := x.Cols("ifvip").Where("Uid=?", uid).Update(vip)
 	if err == nil {
 		fmt.Println(affected)
 		fmt.Println("购买成功")
